@@ -3,6 +3,8 @@ package com.example.eshop_client;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,12 +27,25 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
-
+    Button loginButton;
+    String loginURL ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Home");
+        loginButton = findViewById(R.id.login);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                TextView email = findViewById(R.id.email);
+                TextView password = findViewById(R.id.password);
+                loginURL = "http://10.0.2.2:3000/login?" + "email=" + email.getText() +"&password="+password.getText();
+                System.out.println(loginURL);
+                new Network().execute(loginURL);
+            }
+        });
 //        BottomNavigationView navView = findViewById(R.id.nav_view);
 //        // Passing each menu ID as a set of Ids because each
 //        // menu should be considered as top level destinations.
@@ -62,21 +77,22 @@ class Network extends AsyncTask<String, Void, Boolean> {
 
                 // StatusLine stat = response.getStatusLine();
                 int status = response.getStatusLine().getStatusCode();
-
+                System.out.println(status);
                 if (status == 200) {
                     HttpEntity entity = response.getEntity();
                     String data = EntityUtils.toString(entity);
                     JSONObject jsono = new JSONObject(data);
-                    if(i == 0 ) {
-                        try {
-                            SmsManager sms = SmsManager.getDefault();
-                            sms.sendTextMessage("phone:" + jsono.get("phone"), null, "body:" + jsono.get("body"), null, null);
-                        }catch (Exception e){System.out.println("No SMS to send");}
-                        if(jsono.get("ID")=="-1")
-                            return true;
-                        urls[1] += jsono.get("ID");
-                        System.out.println(urls[1]);
-                    }
+
+//                    if(i == 0 ) {
+//                        try {
+//                            SmsManager sms = SmsManager.getDefault();
+//                            sms.sendTextMessage("phone:" + jsono.get("phone"), null, "body:" + jsono.get("body"), null, null);
+//                        }catch (Exception e){System.out.println("No SMS to send");}
+//                        if(jsono.get("ID")=="-1")
+//                            return true;
+//                        urls[1] += jsono.get("ID");
+//                        System.out.println(urls[1]);
+//                    }
                 }
 
             } catch (IOException e) {
