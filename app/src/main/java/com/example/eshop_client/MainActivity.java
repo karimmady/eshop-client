@@ -7,6 +7,7 @@ import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     Button loginButton;
     String loginURL ;
     Button RegisterButton;
+    boolean status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +47,17 @@ public class MainActivity extends AppCompatActivity {
                 TextView password = findViewById(R.id.password);
                 loginURL = "http://10.0.2.2:3000/login?" + "email=" + email.getText() +"&password="+password.getText();
                 System.out.println(loginURL);
-                new Network().execute(loginURL);
+                try {
+                    boolean status = new Network().execute(loginURL).get();
+                }catch (Exception e){
+
+                }
+                if (status){
+                    //go to home
+                }
+                else {
+                    //make toast invalid login
+                }
             }
         });
 //        BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -74,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
 class Network extends AsyncTask<String, Void, Boolean> {
 
-    TextView textView;
+    public static int status;
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -89,13 +101,13 @@ class Network extends AsyncTask<String, Void, Boolean> {
                 HttpResponse response = httpclient.execute(httppost);
 
                 // StatusLine stat = response.getStatusLine();
-                int status = response.getStatusLine().getStatusCode();
-                System.out.println(status);
+                status = response.getStatusLine().getStatusCode();
+//                System.out.println(status);
                 if (status == 200) {
                     HttpEntity entity = response.getEntity();
                     String data = EntityUtils.toString(entity);
                     JSONObject jsono = new JSONObject(data);
-
+                    return true;
 //                    if(i == 0 ) {
 //                        try {
 //                            SmsManager sms = SmsManager.getDefault();
