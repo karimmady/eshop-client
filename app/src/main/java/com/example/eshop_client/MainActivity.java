@@ -1,5 +1,6 @@
 package com.example.eshop_client;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -29,6 +30,7 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
     Button loginButton;
     String loginURL ;
+    Button RegisterButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +57,17 @@ public class MainActivity extends AppCompatActivity {
 //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 //        NavigationUI.setupWithNavController(navView, navController);
+
+        RegisterButton=  findViewById(R.id.register);
+        RegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent F= new Intent(MainActivity.this,Register.class);
+                startActivity(F);
+
+            }
+        });
     }
 
 }

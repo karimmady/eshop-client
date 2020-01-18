@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Register">
+
+    <EditText
+        android:id="@+id/ReEnter"
+        android:layout_width="207dp"
+        android:layout_height="wrap_content"
+        android:layout_x="19dp"
+        android:layout_y="323dp"
+        android:hint="Re-Enter Password"
+        android:inputType="textPassword"
+        android:textColor="@color/deepSkyBlue"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/Password"
+        android:layout_width="207dp"
+        android:layout_height="wrap_content"
+        android:layout_x="19dp"
+        android:layout_y="238dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="@color/deepSkyBlue"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/FirstName"
+        android:layout_width="147dp"
+        android:layout_height="46dp"
+        android:layout_x="19dp"
+        android:layout_y="60dp"
+        android:textAlignment="center"
+        android:textColor="@color/deepSkyBlue"
+        android:textStyle="bold"
+        android:hint="First Name"
+        android:inputType="textPersonName"
+     />
+
+    <EditText
+        android:id="@+id/LastName"
+        android:layout_width="147dp"
+        android:layout_height="46dp"
+        android:layout_x="230dp"
+        android:layout_y="59dp"
+        android:textAlignment="center"
+        android:textColor="@color/deepSkyBlue"
+        android:textStyle="bold"
+        android:hint="Last Name"
+        android:inputType="textPersonName"
+      />
+
+    <EditText
+        android:id="@+id/email2"
+        android:layout_width="365dp"
+        android:layout_height="48dp"
+        android:layout_x="18dp"
+        android:layout_y="142dp"
+        android:textColor="@color/deepSkyBlue"
+        android:textStyle="bold"
+        android:hint="E-mail Address"
+         />
+
+    <Button
+        android:id="@+id/register2"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_x="50dp"
+        android:layout_y="467dp"
+        android:background="@color/deepSkyBlue"
+        android:text="Register"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="30dp" />/>
+
+</AbsoluteLayout>
