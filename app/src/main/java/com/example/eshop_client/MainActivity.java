@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     Button loginButton;
     String loginURL ;
     Button RegisterButton;
+    Network network = new Network();
     boolean status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +53,9 @@ public class MainActivity extends AppCompatActivity {
                 }catch (Exception e){
 
                 }
-                if (status){
-                    //go to home
+                if (network.status==200){
+                    Intent i = new Intent(MainActivity.this,Home.class);
+                    startActivity(i);
                 }
                 else {
                     //make toast invalid login
