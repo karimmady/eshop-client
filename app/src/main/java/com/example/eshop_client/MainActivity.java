@@ -46,20 +46,21 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 TextView email = findViewById(R.id.email);
                 TextView password = findViewById(R.id.password);
-                loginURL = "http://10.0.2.2:3000/login?" + "email=" + email.getText() +"&password="+password.getText();
+                loginURL = "http://192.168.1.10:3000/login?" + "email=" + email.getText() +"&password="+password.getText();
                 System.out.println(loginURL);
-                try {
-                    boolean status = new Network().execute(loginURL).get();
-                }catch (Exception e){
-
-                }
-                if (network.status==200){
+//                try {
+//                    boolean status = new Network().execute(loginURL).get();
+//                }catch (Exception e){
+//
+//                }
+//                if (network.status==200){
                     Intent i = new Intent(MainActivity.this,Home.class);
                     startActivity(i);
-                }
-                else {
-                    //make toast invalid login
-                }
+//                }
+//                else {
+//
+//                    Toast.makeText(MainActivity.this,"ERROR",Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 //        BottomNavigationView navView = findViewById(R.id.nav_view);
