@@ -27,11 +27,30 @@ public class Register extends AppCompatActivity {
                 EditText lastName = findViewById(R.id.LastName);
                 EditText Password = findViewById(R.id.Password);
                 EditText RePassword =findViewById(R.id.ReEnter);
-               // System.out.println(String.valueOf(firstName.getText()).equals(null));
-                if(!String.valueOf(Password.getText()).equals(String.valueOf(RePassword.getText())))
+               ///////////////////////////////////////////////////////////////////////////////////////////
+                if(!String.valueOf(Password.getText()).equals(String.valueOf(RePassword.getText()))
+                        ||String.valueOf(firstName.getText()).isEmpty() ||String.valueOf(lastName.getText()).isEmpty()
+                        ||String.valueOf(email.getText()).isEmpty()||String.valueOf(Password.getText()).isEmpty()
+                        ||String.valueOf(RePassword.getText()).isEmpty())
                 {
+                    if(String.valueOf(firstName.getText()).isEmpty() && String.valueOf(lastName.getText()).isEmpty()
+                       &&String.valueOf(email.getText()).isEmpty()&& String.valueOf(Password.getText()).isEmpty()
+                       &&String.valueOf(RePassword.getText()).isEmpty())
+                        Toast.makeText(Register.this,"Missing information",Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(Register.this,"Password does not match",Toast.LENGTH_SHORT).show();
+
+                    else if (String.valueOf(firstName.getText()).isEmpty())
+                        Toast.makeText(Register.this,"Please enter your first name",Toast.LENGTH_SHORT).show();
+                    else if (String.valueOf(lastName.getText()).isEmpty())
+                        Toast.makeText(Register.this,"Please enter your last name",Toast.LENGTH_SHORT).show();
+                    else if (String.valueOf(email.getText()).isEmpty())
+                        Toast.makeText(Register.this,"Please enter your E-mail address",Toast.LENGTH_SHORT).show();
+                    else if (String.valueOf(Password.getText()).isEmpty())
+                        Toast.makeText(Register.this,"Please type your password",Toast.LENGTH_SHORT).show();
+                    else if (String.valueOf(RePassword.getText()).isEmpty())
+                        Toast.makeText(Register.this,"Please Re-Enter your password",Toast.LENGTH_SHORT).show();
+                    else if (!String.valueOf(Password.getText()).equals(String.valueOf(RePassword.getText())))
+                        Toast.makeText(Register.this,"Password does not match",Toast.LENGTH_SHORT).show();
                 }
                 else{
                     registerURL = "http://10.0.2.2:3000/register?" + "email=" + email.getText() +"&password="+Password.getText()+"&name="+String.valueOf(firstName.getText())+"%20"+String.valueOf(lastName.getText());
