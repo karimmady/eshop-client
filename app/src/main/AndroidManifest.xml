@@ -12,9 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.dashboard.SetSizes"></activity>
+        <activity android:name=".ui.dashboard.change_password" />
         <activity
             android:name=".Home"
-            android:label="@string/title_activity_home"></activity>
+            android:label="@string/title_activity_home" />
         <activity android:name=".Register" />
         <activity
             android:name=".MainActivity"
