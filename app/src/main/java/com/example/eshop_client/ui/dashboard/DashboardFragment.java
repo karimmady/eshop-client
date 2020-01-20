@@ -18,6 +18,8 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.eshop_client.MainActivity;
 import com.example.eshop_client.R;
 
+import java.io.InputStream;
+
 public class DashboardFragment extends Fragment {
 
     private DashboardViewModel dashboardViewModel;
