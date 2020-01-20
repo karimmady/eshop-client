@@ -1,5 +1,7 @@
 package com.example.eshop_client.ui.dashboard;
 
+import android.widget.Button;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -10,7 +12,7 @@ public class DashboardViewModel extends ViewModel {
 
     public DashboardViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("");
     }
 
     public LiveData<String> getText() {

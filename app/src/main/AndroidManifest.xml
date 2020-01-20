@@ -39,6 +39,8 @@
             android:name=".ui.home.Brands"
             android:label="@string/title_activity_brands"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.dashboard.SetSizes"></activity>
+        <activity android:name=".ui.dashboard.change_password" />
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home" />
