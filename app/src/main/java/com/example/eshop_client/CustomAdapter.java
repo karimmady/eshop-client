@@ -1,7 +1,8 @@
-package com.example.eshop_client.ui.home;
+package com.example.eshop_client;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +12,11 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eshop_client.R;
+import com.example.eshop_client.ui.home.Brands;
 
 import java.util.ArrayList;
 
- class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
+public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
     ArrayList<String> brandNames;
     ArrayList<Integer> brandImages;
@@ -46,9 +48,11 @@ import java.util.ArrayList;
             @Override
             public void onClick(View view) {
                 // open another activity on item click
-                Intent intent = new Intent(context, Brands.class);
-                intent.putExtra("image", brandImages.get(position)); // put image data in Intent
-                context.startActivity(intent); // start Intent
+                Intent i= new Intent(context, Brands.class);
+                Bundle X=new Bundle();
+                X.putString("Bname",brandNames.get(position));
+                i.putExtras(X);
+                context.startActivity(i);
             }
         });
 
