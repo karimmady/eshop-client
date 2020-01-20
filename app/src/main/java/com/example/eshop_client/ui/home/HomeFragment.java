@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.eshop_client.CustomAdapter;
+
+import com.example.eshop_client.DataHolder;
 import com.example.eshop_client.Network;
 
 import androidx.annotation.NonNull;
@@ -36,19 +38,9 @@ public class HomeFragment extends Fragment {
     JSONObject brands;
     JSONArray brandsArray;
     ArrayList<String> brandNames = new ArrayList<>();//(Arrays.asList("brand 1", "brand 2", "brand 3", "brand 4", "brand 5", "brand 6", "brand 7","brand 8", "brand 9", "brand 10", "brand 11", "brand 12", "brand 13", "brand 14"));
-    ArrayList<Integer> brandImages = new ArrayList<>(Arrays.asList(R.drawable.bisho, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan,R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan));
+    ArrayList<Integer> brandImages = new ArrayList<>();//(Arrays.asList(R.drawable.Bisho, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan,R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan));
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        homeViewModel =
-//                ViewModelProviders.of(this).get(HomeViewModel.class);
-//        View root = inflater.inflate(R.layout.fragment_home, container, false);
-//        final TextView textView = root.findViewById(R.id.text_home);
-//        homeViewModel.getText().observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         try {
             network.execute("http://192.168.1.41:3000/getbrands").get();
@@ -61,13 +53,9 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i<brandsArray.length(); i+=1){
             try {
                 JSONObject temp = (JSONObject)brandsArray.get(i);
-                System.out.println(temp.get("name"));
+                System.out.println(DataHolder.getInstance().getEmail());
                 brandNames.add((String)temp.get("name"));
-//                int resID = getResId((String)temp.get("name"), R.drawable.class);
-//                ContextCompat.getDrawable(getActivity().getApplicationContext().getPackageName(), R.drawable.<you_name_it>)
-                System.out.println(getResources().getIdentifier((String)temp.get("name")+".jpg", "drawable", getActivity().getApplicationContext().getPackageName()));
-                System.out.println(R.drawable.hawas);
-//                brandImages.add(getResources().getIdentifier((String)temp.get("name")+".jpg", "drawable",this));
+                brandImages.add(getResources().getIdentifier((String)temp.get("name"), "drawable",getActivity().getApplicationContext().getPackageName()));
             }catch (Exception e){}
         }
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);

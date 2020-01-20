@@ -13,9 +13,12 @@ import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.eshop_client.DataHolder;
 import com.example.eshop_client.MainActivity;
+import com.example.eshop_client.Network;
 import com.example.eshop_client.R;
 
 import java.io.InputStream;
@@ -23,7 +26,8 @@ import java.io.InputStream;
 public class DashboardFragment extends Fragment {
 
     private DashboardViewModel dashboardViewModel;
-
+    Network network = new Network();
+    TextView name, points,email;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel =
@@ -32,7 +36,18 @@ public class DashboardFragment extends Fragment {
         final Button Logout = root.findViewById(R.id.logout);
         final Button changepw = root.findViewById(R.id.changepassword);
         final Button changesize = root.findViewById(R.id.changesizes);
+        name = root.findViewById(R.id.nameDashboard);
+        email = root.findViewById(R.id.emailDashboard);
+        points = root.findViewById(R.id.pointsDashboard);
+        try {
+            network.execute("http://10.0.2.2:3000/getUser?email=" + DataHolder.getInstance().getEmail()).get();
+            System.out.println(network.jsono);
+            name.setText((String)network.jsono.get("name"));
+            email.setText((String)network.jsono.get("email"));
+            points.setText("0");
+        }catch (Exception e){
 
+        }
         changesize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,6 +59,10 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(),change_password.class);
+                try {
+                    i.putExtra("password",(String) network.jsono.get("password"));
+                }
+                catch (Exception e){}
                 startActivity(i);
             }
         });

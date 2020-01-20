@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 TextView email = findViewById(R.id.email);
                 TextView password = findViewById(R.id.password);
-                loginURL = "http://192.168.1.41:3000/login?" + "email=" + email.getText() +"&password="+password.getText();
+                DataHolder.getInstance().setEmail(String.valueOf(email.getText()));
+                loginURL = "http://10.0.2.2:3000/login?" + "email=" + email.getText() +"&password="+password.getText();
                 System.out.println(loginURL);
 //                try {
 //                    boolean status = new Network().execute(loginURL).get();
@@ -64,16 +65,6 @@ public class MainActivity extends AppCompatActivity {
 //                }
             }
         });
-//        BottomNavigationView navView = findViewById(R.id.nav_view);
-//        // Passing each menu ID as a set of Ids because each
-//        // menu should be considered as top level destinations.
-//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-//                .build();
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-//        NavigationUI.setupWithNavController(navView, navController);
-
         RegisterButton=  findViewById(R.id.register);
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
