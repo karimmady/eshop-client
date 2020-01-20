@@ -27,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 
 public class MainActivity extends AppCompatActivity {
     Button loginButton;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 TextView email = findViewById(R.id.email);
                 TextView password = findViewById(R.id.password);
-                loginURL = "http://192.168.1.10:3000/login?" + "email=" + email.getText() +"&password="+password.getText();
+                loginURL = "http://10.0.2.2:3000/login?" + "email=" + email.getText() +"&password="+password.getText();
                 System.out.println(loginURL);
 //                try {
 //                    boolean status = new Network().execute(loginURL).get();
@@ -85,55 +86,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-}
-
-class Network extends AsyncTask<String, Void, Boolean> {
-
-    public static int status;
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
-
-    @Override
-    protected Boolean doInBackground(String... urls){
-        for(int i = 0 ; i<urls.length;i+=1) {
-            try {
-                HttpGet httppost = new HttpGet(urls[i]);
-                HttpClient httpclient = new DefaultHttpClient();
-                HttpResponse response = httpclient.execute(httppost);
-
-                // StatusLine stat = response.getStatusLine();
-                status = response.getStatusLine().getStatusCode();
-//                System.out.println(status);
-                if (status == 200) {
-                    HttpEntity entity = response.getEntity();
-                    String data = EntityUtils.toString(entity);
-                    JSONObject jsono = new JSONObject(data);
-                    return true;
-//                    if(i == 0 ) {
-//                        try {
-//                            SmsManager sms = SmsManager.getDefault();
-//                            sms.sendTextMessage("phone:" + jsono.get("phone"), null, "body:" + jsono.get("body"), null, null);
-//                        }catch (Exception e){System.out.println("No SMS to send");}
-//                        if(jsono.get("ID")=="-1")
-//                            return true;
-//                        urls[1] += jsono.get("ID");
-//                        System.out.println(urls[1]);
-//                    }
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-                return false;
-            }
-        }
-        return false;
-    }
-
-    protected void onPostExecute(Boolean result) {
-
-    }
 }
