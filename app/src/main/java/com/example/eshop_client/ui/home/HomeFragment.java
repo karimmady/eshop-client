@@ -122,9 +122,11 @@ class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
             @Override
             public void onClick(View view) {
                 // open another activity on item click
-                Intent intent = new Intent(context, Brands.class);
-                intent.putExtra("image", brandImages.get(position)); // put image data in Intent
-                context.startActivity(intent); // start Intent
+                Intent i= new Intent(context,Brands.class);
+                Bundle X=new Bundle();
+                X.putString("Bname",brandNames.get(position));
+                i.putExtras(X);
+                context.startActivity(i);
             }
         });
 

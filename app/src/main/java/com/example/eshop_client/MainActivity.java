@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 TextView email = findViewById(R.id.email);
                 TextView password = findViewById(R.id.password);
-                loginURL = "http://10.0.2.2:3000/login?" + "email=" + email.getText() +"&password="+password.getText();
+                loginURL = "http://192.168.1.41:3000/login?" + "email=" + email.getText() +"&password="+password.getText();
                 System.out.println(loginURL);
 //                try {
 //                    boolean status = new Network().execute(loginURL).get();
