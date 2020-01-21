@@ -11,7 +11,6 @@ public class DataHolder {
     public void setEmail(String mail) {this.email = mail;}
     public void setPostInfo(List<NameValuePair> nameValuePairs){postInfo = nameValuePairs;}
     public List<NameValuePair>getPostInfo(){return postInfo;}
-
     private static final DataHolder holder = new DataHolder();
     public static DataHolder getInstance() {return holder;}
 }

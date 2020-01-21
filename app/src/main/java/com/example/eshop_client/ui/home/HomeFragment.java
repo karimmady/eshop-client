@@ -37,11 +37,13 @@ public class HomeFragment extends Fragment {
     JSONObject brands;
     JSONArray brandsArray;
     ArrayList<String> brandNames = new ArrayList<>();//(Arrays.asList("brand 1", "brand 2", "brand 3", "brand 4", "brand 5", "brand 6", "brand 7","brand 8", "brand 9", "brand 10", "brand 11", "brand 12", "brand 13", "brand 14"));
-    ArrayList<Integer> brandImages = new ArrayList<>(Arrays.asList(R.drawable.zara, R.drawable.zara, R.drawable.nike));
+    ArrayList<Integer> brandImages = new ArrayList<>();//(Arrays.asList(R.drawable.zara, R.drawable.zara, R.drawable.nike));
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         try {
+            brandNames.clear();
+            brandImages.clear();
             network.execute("http://10.0.2.2:3000/getbrands").get();
             brands = network.jsono;
             brandsArray = (JSONArray) brands.get("data");

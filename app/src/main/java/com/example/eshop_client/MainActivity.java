@@ -50,12 +50,12 @@ public class MainActivity extends AppCompatActivity {
                 DataHolder.getInstance().setEmail(String.valueOf(email.getText()));
                 loginURL = "http://10.0.2.2:3000/login?" + "email=" + email.getText() +"&password="+password.getText();
                 System.out.println(loginURL);
-                try {
-                    boolean status = new Network().execute(loginURL).get();
-                }catch (Exception e){
+                    try {
+                        boolean status = new Network().execute(loginURL).get();
+                    }catch (Exception e){
 
-                }
-                if (network.status==200){
+                    }
+                    if (network.status==200){
                     Intent i = new Intent(MainActivity.this,Home.class);
                     startActivity(i);
                 }

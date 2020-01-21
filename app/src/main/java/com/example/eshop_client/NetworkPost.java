@@ -31,9 +31,8 @@ public class NetworkPost extends AsyncTask<String, Void, Boolean> {
                 HttpPost httppost = new HttpPost(urls[i]);
                 httppost.setEntity(new UrlEncodedFormEntity(DataHolder.getInstance().getPostInfo()));
                 HttpClient httpclient = new DefaultHttpClient();
-                HttpResponse response = httpclient.execute(httppost);
 
-                // StatusLine stat = response.getStatusLine();
+                HttpResponse response = httpclient.execute(httppost);
                 status = response.getStatusLine().getStatusCode();
                 System.out.println(status);
                 if (status == 200) {
@@ -41,16 +40,6 @@ public class NetworkPost extends AsyncTask<String, Void, Boolean> {
                     String data = EntityUtils.toString(entity);
                     jsono = new JSONObject(data);
                     return true;
-//                    if(i == 0 ) {
-//                        try {
-//                            SmsManager sms = SmsManager.getDefault();
-//                            sms.sendTextMessage("phone:" + jsono.get("phone"), null, "body:" + jsono.get("body"), null, null);
-//                        }catch (Exception e){System.out.println("No SMS to send");}
-//                        if(jsono.get("ID")=="-1")
-//                            return true;
-//                        urls[1] += jsono.get("ID");
-//                        System.out.println(urls[1]);
-//                    }
                 }
 
             } catch (IOException e) {

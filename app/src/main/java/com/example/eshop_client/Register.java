@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.eshop_client.ui.dashboard.SetSizes;
+
 public class Register extends AppCompatActivity {
     Button Register;
     String registerURL;
@@ -55,7 +57,8 @@ public class Register extends AppCompatActivity {
                 else{
                     registerURL = "http://10.0.2.2:3000/register?" + "email=" + email.getText() +"&password="+Password.getText()+"&name="+String.valueOf(firstName.getText())+"%20"+String.valueOf(lastName.getText());
                     new Network().execute(registerURL);
-                    Intent i= new Intent(Register.this,MainActivity.class);
+                    DataHolder.getInstance().setEmail(String.valueOf(email.getText()));
+                    Intent i= new Intent(Register.this, SetSizes.class);
                     startActivity(i);
                 }
 

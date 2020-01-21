@@ -38,7 +38,7 @@ public class NotificationsFragment extends Fragment {
     JSONObject brands;
     JSONArray brandsArray;
     ArrayList<String> notifTitle = new ArrayList<>();//(Arrays.asList("brand 1", "brand 2", "brand 3", "brand 4", "brand 5", "brand 6", "brand 7","brand 8", "brand 9", "brand 10", "brand 11", "brand 12", "brand 13", "brand 14"));
-    ArrayList<Integer> notifImages = new ArrayList<>(Arrays.asList(R.drawable.nike4, R.drawable.nike2));
+    ArrayList<Integer> notifImages = new ArrayList<>();//(Arrays.asList(R.drawable.nike4, R.drawable.nike2));
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
