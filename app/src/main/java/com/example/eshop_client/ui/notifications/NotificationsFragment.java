@@ -50,7 +50,7 @@ public class NotificationsFragment extends Fragment {
 //        });
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         try {
-            network.execute("http://192.168.1.41:3000/getbrands").get();
+            network.execute("http://172.20.10.2:3000/getbrands").get();
             brands = network.jsono;
             brandsArray = (JSONArray) brands.get("data");
             System.out.println(brandsArray);
