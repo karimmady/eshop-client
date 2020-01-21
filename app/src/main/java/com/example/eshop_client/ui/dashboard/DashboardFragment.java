@@ -40,7 +40,7 @@ public class DashboardFragment extends Fragment {
         email = root.findViewById(R.id.emailDashboard);
         points = root.findViewById(R.id.pointsDashboard);
         try {
-            network.execute("http://10.0.2.2:3000/getUser?email=" + DataHolder.getInstance().getEmail()).get();
+            network.execute("http://172.20.10.2:3000/getUser?email=" + DataHolder.getInstance().getEmail()).get();
             System.out.println(network.jsono);
             name.setText((String)network.jsono.get("name"));
             email.setText((String)network.jsono.get("email"));

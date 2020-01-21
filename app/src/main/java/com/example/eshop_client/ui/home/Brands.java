@@ -8,7 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
-import com.example.eshop_client.CustomAdapter;
+import com.example.eshop_client.MainActivity;
 import com.example.eshop_client.Network;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -38,9 +38,10 @@ public class Brands extends AppCompatActivity {
     Network network = new Network();
     JSONObject brands;
     JSONArray brandsArray;
-    ArrayList<String> brandNames = new ArrayList<>();//(Arrays.asList("brand 1", "brand 2", "brand 3", "brand 4", "brand 5", "brand 6", "brand 7","brand 8", "brand 9", "brand 10", "brand 11", "brand 12", "brand 13", "brand 14"));
-    ArrayList<Integer> brandImages = new ArrayList<>(Arrays.asList(R.drawable.bisho, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan,R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan, R.drawable.tahan));
 
+    ArrayList<String> itemName = new ArrayList<>();//(Arrays.asList("brand 1", "brand 2", "brand 3", "brand 4", "brand 5", "brand 6", "brand 7","brand 8", "brand 9", "brand 10", "brand 11", "brand 12", "brand 13", "brand 14"));
+    ArrayList<Integer> itemImage = new ArrayList<>(Arrays.asList(R.drawable.nike1, R.drawable.nike2, R.drawable.nike3,R.drawable.nike4));
+    ArrayList<String> itemPrice = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,20 +81,22 @@ public class Brands extends AppCompatActivity {
             try {
                 JSONObject temp = (JSONObject)brandsArray.get(i);
                 System.out.println(temp.get("name"));
-                brandNames.add((String)temp.get("name"));
+                itemName.add((String)temp.get("name"));
+                itemImage.add(getResources().getIdentifier((String)temp.get("name"), "drawable",getApplicationContext().getPackageName()));
+                itemPrice.add((String)temp.get("name"));
 //                int resID = getResId((String)temp.get("name"), R.drawable.class);
 //                ContextCompat.getDrawable(getActivity().getApplicationContext().getPackageName(), R.drawable.<you_name_it>)
 
-//                brandImages.add(getResources().getIdentifier((String)temp.get("name")+".jpg", "drawable",this));
+//                itemImage.add(getResources().getIdentifier((String)temp.get("name")+".jpg", "drawable",this));
             }catch (Exception e){}
         }
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView2);
         // set a GridLayoutManager with 2 number of columns , horizontal gravity and false value for reverseLayout to show the items from start to end
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(Brands.this,1);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(Brands.this,2);
         recyclerView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
-        //  call the constructor of CustomAdapter   to send the reference and data to Adapter
-        CustomAdapter CustomAdapter   = new CustomAdapter  (Brands.this, brandNames, brandImages);
-        recyclerView.setAdapter(CustomAdapter); // set the Adapter to RecyclerView
+        //  call the constructor of CustomAdapterThree   to send the reference and data to Adapter
+        CustomAdapterThree CustomAdapterThree   = new CustomAdapterThree  (Brands.this, itemName, itemImage,itemPrice);
+        recyclerView.setAdapter(CustomAdapterThree); // set the Adapter to RecyclerView
 
 
     }
@@ -105,6 +108,69 @@ public class Brands extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
+        }
+    }
+}
+
+    class CustomAdapterThree extends RecyclerView.Adapter<CustomAdapterThree.MyViewHolder> {
+
+    ArrayList<String> itemName;
+    ArrayList<String> itemPrice;
+    ArrayList<Integer> itemImage;
+    Context context;
+
+    public CustomAdapterThree(Context context, ArrayList<String> itemName, ArrayList<Integer> itemImage,ArrayList<String> itemPrice) {
+        this.context = context;
+        this.itemPrice =itemPrice;
+        this.itemName = itemName;
+        this.itemImage = itemImage;
+    }
+
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        // infalte the item Layout
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rowlayoutitems, parent, false);
+        // set the view's size, margins, paddings and layout parameters
+        MyViewHolder vh = new MyViewHolder(v); // pass the view to View Holder
+        return vh;
+    }
+
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
+        // set the data in items
+        holder.name.setText(itemName.get(position));
+        holder.image.setImageResource(itemImage.get(position));
+        // implement setOnClickListener event on item view.
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // open another activity on item click
+                Intent i= new Intent(context, MainActivity.class);
+                context.startActivity(i);
+            }
+        });
+
+    }
+
+
+    @Override
+    public int getItemCount() {
+        return itemName.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        // init the item view's
+        TextView name;
+        TextView itemP;
+        ImageView image;
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+
+            // get the reference of item view's
+            name = (TextView) itemView.findViewById(R.id.itemname);
+            image = (ImageView) itemView.findViewById(R.id.itemimage);
+            itemP=itemView.findViewById(R.id.itemprice);
         }
     }
 }
