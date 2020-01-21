@@ -18,7 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Cart"></activity>
+        <activity
+            android:name=".ui.home.Specific"
+            android:label="@string/title_activity_specific"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Cart" />
         <activity
             android:name=".ui.home.Brands"
             android:label="@string/title_activity_brands"

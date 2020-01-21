@@ -6,4 +6,5 @@
     <string name="title_activity_home">Home</string>
     <string name="title_activity_brands">Brands</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_specific">Specific</string>
 </resources>
