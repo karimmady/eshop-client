@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 TextView email = findViewById(R.id.email);
                 TextView password = findViewById(R.id.password);
                 DataHolder.getInstance().setEmail(String.valueOf(email.getText()));
-                loginURL = "http://172.20.10.2:3000/login?" + "email=" + email.getText() +"&password="+password.getText();
+                loginURL = "http://10.0.2.2:3000/login?" + "email=" + email.getText() +"&password="+password.getText();
                 System.out.println(loginURL);
                 try {
                     boolean status = new Network().execute(loginURL).get();

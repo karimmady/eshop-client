@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.Brands">
+    tools:context=".ui.home.Specific">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -20,19 +20,16 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_brands" />
+    <include layout="@layout/content_specific" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:backgroundTint="@color/deepSkyBlue"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_map"
         app:rippleColor="@color/white"
-        app:backgroundTint="@color/deepSkyBlue"
-
-        />
-
+        android:src="@drawable/cart" /> />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
