@@ -1,6 +1,7 @@
 package com.example.eshop_client.ui.dashboard;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,10 @@ import com.example.eshop_client.R;
 
 import java.io.InputStream;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class DashboardFragment extends Fragment {
+    SharedPreferences preferences;
 
     private DashboardViewModel dashboardViewModel;
     Network network = new Network();
@@ -70,8 +74,11 @@ public class DashboardFragment extends Fragment {
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(),MainActivity.class);
-                startActivity(i);
+                try {
+                    new Network().execute("http://10.0.2.2:3000/logout?email=" + DataHolder.getInstance().getEmail()).get();
+                    Intent i = new Intent(getContext(), MainActivity.class);
+                    startActivity(i);
+                }catch (Exception e){}
             }
         });
         return root;

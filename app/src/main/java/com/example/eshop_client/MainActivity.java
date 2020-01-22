@@ -1,8 +1,10 @@
 package com.example.eshop_client;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
@@ -34,12 +36,32 @@ public class MainActivity extends AppCompatActivity {
     String loginURL ;
     Button RegisterButton;
     Network network = new Network();
+    SharedPreferences preferences;
     boolean status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Home");
+        preferences = getSharedPreferences("myprefs", MODE_PRIVATE);
+        String token = preferences.getString("token","");
+        String storedEmail = preferences.getString("email","");
+        System.out.println(token);
+        try {
+            network.execute("http://10.0.2.2:3000/checkToken?" + "email=" + storedEmail + "&token=" + token).get();
+            if(network.status==200)
+            {
+                DataHolder.getInstance().setEmail(storedEmail);
+                Intent i = new Intent(MainActivity.this, Home.class);
+                startActivity(i);
+            }
+            else{
+                preferences.edit().remove("token");
+                preferences.edit().remove("email");
+            }
+        }catch (Exception e){
+
+        }
         loginButton = findViewById(R.id.login);
         loginButton.setOnClickListener(new View.OnClickListener() {
 
@@ -56,11 +78,16 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                     if (network.status==200){
-                    Intent i = new Intent(MainActivity.this,Home.class);
-                    startActivity(i);
+                        try {
+                            preferences.edit().putString("token", network.jsono.getString("token")).commit();
+                            preferences.edit().putString("email", String.valueOf(email.getText())).commit();
+                            Intent i = new Intent(MainActivity.this, Home.class);
+                            startActivity(i);
+                        }catch (Exception e){
+                            Toast.makeText(MainActivity.this,"ERROR",Toast.LENGTH_SHORT).show();
+                        }
                 }
                 else {
-
                     Toast.makeText(MainActivity.this,"ERROR",Toast.LENGTH_SHORT).show();
                 }
             }
