@@ -38,7 +38,7 @@ public class Brands extends AppCompatActivity {
     Network network = new Network();
     JSONObject brands;
     JSONArray brandsArray;
-
+    JSONArray itemsArray;
     ArrayList<String> itemName = new ArrayList<>();//(Arrays.asList("brand 1", "brand 2", "brand 3", "brand 4", "brand 5", "brand 6", "brand 7","brand 8", "brand 9", "brand 10", "brand 11", "brand 12", "brand 13", "brand 14"));
     ArrayList<Integer> itemImage = new ArrayList<>();//(Arrays.asList(R.drawable.nike1, R.drawable.nike2, R.drawable.nike3,R.drawable.nike4));
     ArrayList<String> itemPrice = new ArrayList<>();
@@ -78,18 +78,39 @@ public class Brands extends AppCompatActivity {
         }catch (Exception e){
             System.out.println("Network Error");
         }
+
         for (int i = 0; i<brandsArray.length(); i+=1){
             try {
                 JSONObject temp = (JSONObject)brandsArray.get(i);
-                System.out.println(temp.get("name"));
-                itemName.add((String)temp.get("name"));
-                itemImage.add(getResources().getIdentifier((String)temp.get("name"), "drawable",getApplicationContext().getPackageName()));
-                itemPrice.add((String)temp.get("name"));
-                itemSizes.add((String)temp.get("name"));
+                if((temp.get("name")).equals(A2))
+                {
+                    itemsArray = (JSONArray) temp.get("items");
+                    break;
+                }
+//                System.out.println(temp.get("name"));
+//                itemName.add((String)temp.get("name"));
+//                itemImage.add(getResources().getIdentifier((String)temp.get("name"), "drawable",getApplicationContext().getPackageName()));
+//                itemPrice.add((String)temp.get("name"));
+//                itemSizes.add((String)temp.get("name"));
 //                int resID = getResId((String)temp.get("name"), R.drawable.class);
 //                ContextCompat.getDrawable(getActivity().getApplicationContext().getPackageName(), R.drawable.<you_name_it>)
 
 //                itemImage.add(getResources().getIdentifier((String)temp.get("name")+".jpg", "drawable",this));
+            }catch (Exception e){}
+        }
+        for(int i = 0;i <itemsArray.length();i+=1){
+            try {
+                JSONObject temp = (JSONObject) itemsArray.get(i);
+                itemName.add((String)temp.get("name"));
+                itemImage.add(getResources().getIdentifier(((String)temp.get("ID")).toLowerCase(), "drawable",getApplicationContext().getPackageName()));
+                itemPrice.add((String)temp.get("price"));
+                JSONArray tempSize = (JSONArray) temp.get("size");
+                System.out.println(tempSize);
+                for(int j = 0; j<tempSize.length();j+=1){
+                    JSONObject eachSize = tempSize.getJSONObject(j);
+                    itemSizes.add(eachSize.getString("name"));
+                }
+                System.out.println(itemSizes);
             }catch (Exception e){}
         }
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView2);
@@ -143,7 +164,7 @@ public class Brands extends AppCompatActivity {
                 Bundle bundle=new Bundle();
                 bundle.putString("itemname",itemName.get(position));
                 bundle.putString("itemprice",itemPrice.get(position));
-                bundle.putString("itemsize",itemSizes.get(position));
+                bundle.putStringArrayList("itemsize",itemSizes);
                 bundle.putIntegerArrayList("image",itemImage);
 
                 context.startActivity(i);
