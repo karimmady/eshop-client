@@ -43,6 +43,7 @@ public class Brands extends AppCompatActivity {
     ArrayList<Integer> itemImage = new ArrayList<>();//(Arrays.asList(R.drawable.nike1, R.drawable.nike2, R.drawable.nike3,R.drawable.nike4));
     ArrayList<String> itemPrice = new ArrayList<>();
     ArrayList<String> itemSizes = new ArrayList<>();
+    ArrayList<ArrayList<String>> allSizes = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,15 +88,6 @@ public class Brands extends AppCompatActivity {
                     itemsArray = (JSONArray) temp.get("items");
                     break;
                 }
-//                System.out.println(temp.get("name"));
-//                itemName.add((String)temp.get("name"));
-//                itemImage.add(getResources().getIdentifier((String)temp.get("name"), "drawable",getApplicationContext().getPackageName()));
-//                itemPrice.add((String)temp.get("name"));
-//                itemSizes.add((String)temp.get("name"));
-//                int resID = getResId((String)temp.get("name"), R.drawable.class);
-//                ContextCompat.getDrawable(getActivity().getApplicationContext().getPackageName(), R.drawable.<you_name_it>)
-
-//                itemImage.add(getResources().getIdentifier((String)temp.get("name")+".jpg", "drawable",this));
             }catch (Exception e){}
         }
         for(int i = 0;i <itemsArray.length();i+=1){
@@ -105,20 +97,22 @@ public class Brands extends AppCompatActivity {
                 itemImage.add(getResources().getIdentifier(((String)temp.get("ID")).toLowerCase(), "drawable",getApplicationContext().getPackageName()));
                 itemPrice.add((String)temp.get("price"));
                 JSONArray tempSize = (JSONArray) temp.get("size");
-                System.out.println(tempSize);
+                itemSizes.clear();
                 for(int j = 0; j<tempSize.length();j+=1){
                     JSONObject eachSize = tempSize.getJSONObject(j);
                     itemSizes.add(eachSize.getString("name"));
                 }
+                allSizes.add(new ArrayList<String>(itemSizes));
                 System.out.println(itemSizes);
             }catch (Exception e){}
         }
+        System.out.println(allSizes);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView2);
         // set a GridLayoutManager with 2 number of columns , horizontal gravity and false value for reverseLayout to show the items from start to end
         GridLayoutManager gridLayoutManager = new GridLayoutManager(Brands.this,2);
         recyclerView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
         //  call the constructor of CustomAdapterThree   to send the reference and data to Adapter
-        CustomAdapterThree CustomAdapterThree   = new CustomAdapterThree  (Brands.this, itemName, itemImage,itemPrice,itemSizes);
+        CustomAdapterThree CustomAdapterThree   = new CustomAdapterThree  (Brands.this, itemName, itemImage,itemPrice,itemSizes,allSizes);
         recyclerView.setAdapter(CustomAdapterThree); // set the Adapter to RecyclerView
 
 
@@ -131,14 +125,16 @@ public class Brands extends AppCompatActivity {
     ArrayList<String> itemPrice;
     ArrayList<String> itemSizes;
     ArrayList<Integer> itemImage;
+    ArrayList<ArrayList<String>>allSizes;
     Context context;
 
-    public CustomAdapterThree(Context context, ArrayList<String> itemName, ArrayList<Integer> itemImage,ArrayList<String> itemPrice,ArrayList<String> itemSizes) {
+    public CustomAdapterThree(Context context, ArrayList<String> itemName, ArrayList<Integer> itemImage,ArrayList<String> itemPrice,ArrayList<String> itemSizes, ArrayList<ArrayList<String>>allSizes) {
         this.context = context;
         this.itemPrice =itemPrice;
         this.itemName = itemName;
         this.itemImage = itemImage;
         this.itemSizes = itemSizes;
+        this.allSizes = allSizes;
     }
 
     @Override
@@ -164,9 +160,9 @@ public class Brands extends AppCompatActivity {
                 Bundle bundle=new Bundle();
                 bundle.putString("itemname",itemName.get(position));
                 bundle.putString("itemprice",itemPrice.get(position));
-                bundle.putStringArrayList("itemsize",itemSizes);
-                bundle.putIntegerArrayList("image",itemImage);
-
+                bundle.putStringArrayList("itemsize",allSizes.get(position));
+                bundle.putInt("image",itemImage.get(position));
+                i.putExtras(bundle);
                 context.startActivity(i);
             }
         });
