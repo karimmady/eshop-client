@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment {
         try {
             brandNames.clear();
             brandImages.clear();
-            network.execute("http://10.0.2.2:3000/getbrands").get();
+            network.execute("http://192.168.1.41:3000/getbrands").get();
             brands = network.jsono;
             brandsArray = (JSONArray) brands.get("data");
             System.out.println(brandsArray);
