@@ -65,7 +65,7 @@ public class SetSizes extends AppCompatActivity {
                     data.add(new BasicNameValuePair("height",height));
                     data.add(new BasicNameValuePair("points","0"));
                     DataHolder.getInstance().setPostInfo(data);
-                    networkPost.execute("http://192.168.1.41:3000/setSize").get();
+                    networkPost.execute("http://10.0.2.2:3000/setSize").get();
                     if(networkPost.status==200) {
                         Intent i= new Intent(SetSizes.this, Home.class);
                         SetSizes.this.startActivity(i);
