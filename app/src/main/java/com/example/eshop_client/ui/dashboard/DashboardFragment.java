@@ -21,6 +21,7 @@ import com.example.eshop_client.DataHolder;
 import com.example.eshop_client.MainActivity;
 import com.example.eshop_client.Network;
 import com.example.eshop_client.R;
+import com.example.eshop_client.SetAddress;
 
 import java.io.InputStream;
 
@@ -40,6 +41,7 @@ public class DashboardFragment extends Fragment {
         final Button Logout = root.findViewById(R.id.logout);
         final Button changepw = root.findViewById(R.id.changepassword);
         final Button changesize = root.findViewById(R.id.changesizes);
+        final Button changeAddress = root.findViewById(R.id.changeAddress);
         name = root.findViewById(R.id.nameDashboard);
         email = root.findViewById(R.id.emailDashboard);
         points = root.findViewById(R.id.pointsDashboard);
@@ -52,6 +54,13 @@ public class DashboardFragment extends Fragment {
         }catch (Exception e){
 
         }
+        changeAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), SetAddress.class);
+                startActivity(i);
+            }
+        });
         changesize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
