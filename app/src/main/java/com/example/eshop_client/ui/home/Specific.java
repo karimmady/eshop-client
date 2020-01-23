@@ -50,7 +50,7 @@ public class Specific extends AppCompatActivity {
         ImageView itemim=findViewById(R.id.itemim);
         TextView itempr=findViewById(R.id.itempr);
 
-       // itemim.setImageDrawable(getResources().getDrawable(ItemImage));
+        itemim.setImageDrawable(getResources().getDrawable(ItemImage));
         itemna.setText(INU);
         itempr.setText(ItemPrice);
 
