@@ -52,7 +52,7 @@ public class change_password extends AppCompatActivity {
                 }
                 else{
                     try {
-                        new Network().execute("http://192.168.43.248:3000/changePassword?" + "email=" + DataHolder.getInstance().getEmail() + "&newPassword=" + newpassword.getText()).get();
+                        new Network().execute("http://10.0.2.2:3000/changePassword?" + "email=" + DataHolder.getInstance().getEmail() + "&newPassword=" + newpassword.getText()).get();
                     }catch (Exception e){}
                     Toast.makeText(change_password.this,"Password Changed",Toast.LENGTH_SHORT).show();
                 }
