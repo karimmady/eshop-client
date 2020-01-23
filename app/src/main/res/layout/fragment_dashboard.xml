@@ -12,10 +12,22 @@
         android:id="@+id/textView9"
         android:layout_width="122dp"
         android:layout_height="33dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="112dp"
         android:text="Points gained"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textAddress"
+        android:layout_width="122dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="44dp"
+        android:text="Address"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -24,9 +36,9 @@
         android:id="@+id/textView4"
         android:layout_width="122dp"
         android:layout_height="33dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="36dp"
         android:text="Name"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,13 +66,15 @@
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
         android:id="@+id/nameDashboard"
         android:layout_width="231dp"
         android:layout_height="34dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="36dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/emailDashboard" />
 
@@ -68,11 +82,23 @@
         android:id="@+id/pointsDashboard"
         android:layout_width="231dp"
         android:layout_height="34dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameDashboard" />
 
+    <TextView
+        android:id="@+id/addressDashboard"
+        android:layout_width="231dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameDashboard" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -102,9 +128,9 @@
         android:id="@+id/imageView7"
         android:layout_width="25dp"
         android:layout_height="32dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="116dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6"
         app:srcCompat="@drawable/points" />
