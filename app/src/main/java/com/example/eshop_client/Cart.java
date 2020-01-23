@@ -4,25 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class Cart extends AppCompatActivity {
-    CartUse cartuse=new CartUse();
+    public cartUse cartuse=new cartUse();
     private RecyclerView mRecyclerView;
     private customadapaterforCart mAdapter;
     private List<Items> mProductList;
@@ -38,7 +25,7 @@ public class Cart extends AppCompatActivity {
         //mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
        //cartuse.addtocart("Black Pants",R.drawable.blackpants, "150 EGP", "remove", "1");
-        //cartuse.addtocart("White shirt",R.drawable.whiteshirt,"Rs. 250", "remove", "1");
+        //artuse.addtocart("White shirt",R.drawable.whiteshirt,"Rs. 250", "remove", "1");c
         //Populate the products
         mProductList=cartuse.getList();
 
@@ -107,20 +94,6 @@ class Items {
     }
 }
 
-class CartUse{
-    public static List<Items> mProductList= new ArrayList<Items>();
 
-    void addtocart(String name, int photo,String price,String remove,String Quantity)
-    {
-        Items c = new Items(name,photo,price,"remove",Quantity);
-        mProductList.add(c);
-    }
-
-
-    public List<Items> getList()
-    {
-        return mProductList;
-    }
-}
 
 

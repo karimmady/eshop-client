@@ -28,7 +28,7 @@ public class SetAddress extends AppCompatActivity {
             public void onClick(View v) {
                 TextView address = findViewById(R.id.Address);
                 try {
-                    network.execute("http://10.0.2.2:3000/setAddress?email=" + DataHolder.getInstance().getEmail() + "&address=" + URLEncoder.encode(String.valueOf(address.getText()),"UTF-8")).get();
+                    network.execute("http://192.168.43.248:3000/setAddress?email=" + DataHolder.getInstance().getEmail() + "&address=" + URLEncoder.encode(String.valueOf(address.getText()),"UTF-8")).get();
                     System.out.println(network.status);
                     if (network.status == 200){
                         Intent i = new Intent(SetAddress.this, Home.class);

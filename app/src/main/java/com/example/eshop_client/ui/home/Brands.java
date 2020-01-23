@@ -72,7 +72,7 @@ public class Brands extends AppCompatActivity {
 
 
         try {
-            network.execute("http://10.0.2.2:3000/getbrands").get();
+            network.execute("http://192.168.43.248:3000/getbrands").get();
             brands = network.jsono;
             brandsArray = (JSONArray) brands.get("data");
             System.out.println(brandsArray);
