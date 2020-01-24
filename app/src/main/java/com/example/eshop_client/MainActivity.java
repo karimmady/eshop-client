@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         String storedEmail = preferences.getString("email","");
         System.out.println(token);
         try {
-            network.execute("http://10.0.2.2:3000/checkToken?" + "email=" + storedEmail + "&token=" + token).get();
+            network.execute("http://192.168.1.9:3000/checkToken?" + "email=" + storedEmail + "&token=" + token).get();
             if(network.status==200)
             {
                 DataHolder.getInstance().setEmail(storedEmail);
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 TextView email = findViewById(R.id.email);
                 TextView password = findViewById(R.id.password);
                 DataHolder.getInstance().setEmail(String.valueOf(email.getText()));
-                loginURL = "http://10.0.2.2:3000/login?" + "email=" + email.getText() +"&password="+password.getText();
+                loginURL = "http://192.168.1.9:3000/login?" + "email=" + email.getText() +"&password="+password.getText();
                 System.out.println(loginURL);
                     try {
                         boolean status = new Network().execute(loginURL).get();

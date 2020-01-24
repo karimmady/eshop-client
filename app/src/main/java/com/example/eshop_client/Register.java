@@ -55,7 +55,7 @@ public class Register extends AppCompatActivity {
                         Toast.makeText(Register.this,"Password does not match",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    registerURL = "http://10.0.2.2:3000/register?" + "email=" + email.getText() +"&password="+Password.getText()+"&name="+String.valueOf(firstName.getText())+"%20"+String.valueOf(lastName.getText());
+                    registerURL = "http://192.168.1.9:3000/register?" + "email=" + email.getText() +"&password="+Password.getText()+"&name="+String.valueOf(firstName.getText())+"%20"+String.valueOf(lastName.getText());
                     new Network().execute(registerURL);
                     DataHolder.getInstance().setEmail(String.valueOf(email.getText()));
                     Intent i= new Intent(Register.this, SetSizes.class);
