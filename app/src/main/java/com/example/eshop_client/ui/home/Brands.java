@@ -8,6 +8,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import com.example.eshop_client.Cart;
+import com.example.eshop_client.Home;
 import com.example.eshop_client.MainActivity;
 import com.example.eshop_client.Network;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,6 +21,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -72,7 +76,7 @@ public class Brands extends AppCompatActivity {
 
 
         try {
-            network.execute("http://10.0.2.2:3000/getbrands").get();
+            network.execute("http://192.168.1.9:3000/getbrands").get();
             brands = network.jsono;
             brandsArray = (JSONArray) brands.get("data");
             System.out.println(brandsArray);
@@ -116,6 +120,24 @@ public class Brands extends AppCompatActivity {
         recyclerView.setAdapter(CustomAdapterThree); // set the Adapter to RecyclerView
 
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        menu.add(0, 0, 0, "Cart").setIcon(R.drawable.cart)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+        menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent i = new Intent (Brands.this, Cart.class);
+                startActivity(i);
+                return true;
+            }
+        });
+
+
+        return true;
     }
 }
 
@@ -190,6 +212,11 @@ public class Brands extends AppCompatActivity {
             itemP=itemView.findViewById(R.id.itemprice);
         }
     }
+
+
+
+
+
 }
 
 
