@@ -43,7 +43,7 @@
 
                 <TextView
                     android:id="@+id/idProductName"
-                    android:layout_width="250dp"
+                    android:layout_width="195dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_toRightOf="@+id/idLinearLayout"
@@ -51,13 +51,14 @@
                     android:textSize="25dp"
                     tools:textColor="@android:color/black" />
 
+
                 <Button
                     android:id="@+id/idMinusICon"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_marginLeft="5dp"
-                    android:background="@drawable/icominus"
-                    />
+                    android:background="@drawable/icominus" />
+
                 <TextView
                     android:id="@+id/idProductQty"
                     android:layout_width="wrap_content"
@@ -72,10 +73,21 @@
                     android:id="@+id/idPlusIcon"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:background="@drawable/icoplus"
                     android:layout_marginLeft="5dp"
+                    android:background="@drawable/icoplus"
 
                     />
+
+                <TextView
+                    android:id="@+id/idProductSize"
+                    android:layout_width="131dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/idLinearLayout"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textSize="25dp"
+                    tools:textColor="@android:color/black" />
+
             </LinearLayout>
 
             <LinearLayout
