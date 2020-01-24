@@ -46,7 +46,7 @@ public class DashboardFragment extends Fragment {
         email = root.findViewById(R.id.emailDashboard);
         points = root.findViewById(R.id.pointsDashboard);
         try {
-            network.execute("http://192.168.1.9:3000/getUser?email=" + DataHolder.getInstance().getEmail()).get();
+            network.execute("http://10.0.2.2:3000/getUser?email=" + DataHolder.getInstance().getEmail()).get();
             System.out.println(network.jsono);
             name.setText((String)network.jsono.get("name"));
             email.setText((String)network.jsono.get("email"));
@@ -84,7 +84,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
-                    new Network().execute("http://192.168.1.9:3000/logout?email=" + DataHolder.getInstance().getEmail()).get();
+                    new Network().execute("http://10.0.2.2:3000/logout?email=" + DataHolder.getInstance().getEmail()).get();
                     Intent i = new Intent(getContext(), MainActivity.class);
                     startActivity(i);
                 }catch (Exception e){}
