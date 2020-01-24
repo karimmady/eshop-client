@@ -73,6 +73,7 @@
         android:layout_y="467dp"
         android:background="@color/deepSkyBlue"
         android:text="Register"
+        app:rippleColor="@color/white"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="30dp" />/>

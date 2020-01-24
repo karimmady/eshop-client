@@ -31,7 +31,7 @@
         app:srcCompat="@android:drawable/ic_dialog_map"
         app:rippleColor="@color/white"
         app:backgroundTint="@color/deepSkyBlue"
-        android:tint="@android:color/black"
+        android:tint="@android:color/white"
 
         />
 

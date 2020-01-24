@@ -57,8 +57,9 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_marginLeft="5dp"
-                    android:background="@drawable/icominus" />
-
+                    app:rippleColor="@color/white"
+                    android:background="@drawable/icominus"
+                    />
                 <TextView
                     android:id="@+id/idProductQty"
                     android:layout_width="wrap_content"
@@ -74,6 +75,7 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_marginLeft="5dp"
+                    app:rippleColor="@color/white"
                     android:background="@drawable/icoplus"
 
                     />
@@ -87,7 +89,6 @@
                     android:gravity="center_vertical|center_horizontal"
                     android:textSize="25dp"
                     tools:textColor="@android:color/black" />
-
             </LinearLayout>
 
             <LinearLayout

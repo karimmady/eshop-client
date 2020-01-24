@@ -5,8 +5,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.List;
+
+import static java.lang.Math.round;
 
 public class Cart extends AppCompatActivity {
     public cartUse cartuse=new cartUse();
@@ -24,8 +28,7 @@ public class Cart extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.idRecyclerView);
         //mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-       //cartuse.addtocart("Black Pants",R.drawable.blackpants, "150 EGP", "remove", "1");
-        //artuse.addtocart("White shirt",R.drawable.whiteshirt,"Rs. 250", "remove", "1");c
+
         //Populate the products
         mProductList=cartuse.getList();
 
@@ -33,6 +36,16 @@ public class Cart extends AppCompatActivity {
         //set adapter to recyclerview
         mAdapter = new customadapaterforCart(mProductList,Cart.this);
         mRecyclerView.setAdapter(mAdapter);
+        TextView totalprice= findViewById(R.id.totalprice);
+        String amount;
+        double finalamount=0;
+        for(int i=0; i<mProductList.size();i++)
+        {
+            amount=mProductList.get(i).productPrice.replace('$',' ');
+            finalamount+=Double.valueOf(amount);
+        }
+        new DecimalFormat("##.##").format(finalamount);
+        totalprice.setText(String.valueOf(finalamount)+ "$");
 
     }
 }
