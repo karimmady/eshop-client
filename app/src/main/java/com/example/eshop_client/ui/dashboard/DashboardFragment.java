@@ -31,8 +31,9 @@ public class DashboardFragment extends Fragment {
     SharedPreferences preferences;
 
     private DashboardViewModel dashboardViewModel;
+    String password = new String();
     Network network = new Network();
-    TextView name, points,email;
+    TextView name, points,email, addressField;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel =
@@ -45,14 +46,19 @@ public class DashboardFragment extends Fragment {
         name = root.findViewById(R.id.nameDashboard);
         email = root.findViewById(R.id.emailDashboard);
         points = root.findViewById(R.id.pointsDashboard);
+        addressField = root.findViewById(R.id.addressDashboard);
         try {
             network.execute("http://10.0.2.2:3000/getUser?email=" + DataHolder.getInstance().getEmail()).get();
             System.out.println(network.jsono);
             name.setText((String)network.jsono.get("name"));
             email.setText((String)network.jsono.get("email"));
+            password = (String)network.jsono.get("password");
+            new Network().execute("http://10.0.2.2:3000/getAddress?email=" + DataHolder.getInstance().getEmail()).get();
+            System.out.println(network.jsono);
+            addressField.setText((String)network.jsono.get("address"));
             points.setText("0");
         }catch (Exception e){
-
+            System.out.println(e);
         }
         changeAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +79,8 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(getContext(),change_password.class);
                 try {
-                    i.putExtra("password",(String) network.jsono.get("password"));
+                    System.out.println(network.jsono);
+                    i.putExtra("password",password);
                 }
                 catch (Exception e){}
                 startActivity(i);

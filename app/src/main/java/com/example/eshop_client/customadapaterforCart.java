@@ -38,9 +38,8 @@ public class customadapaterforCart extends RecyclerView.Adapter<customadapaterfo
         holder.imageProductImage.setImageResource(grocderyItemList.get(position).getProductImage());
         holder.txtProductName.setText(grocderyItemList.get(position).getProductName());
         holder.txtProductPrice.setText(grocderyItemList.get(position).getProductPrice());
-//        holder.txtProductWeight.setText(grocderyItemList.get(position).getProductWeight());
+       holder.txtProductSize.setText(grocderyItemList.get(position).getProductSize());
         holder.txtProductQty.setText(grocderyItemList.get(position).getProductQty());
-
         holder.imageProductImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,7 +97,7 @@ public class customadapaterforCart extends RecyclerView.Adapter<customadapaterfo
         ImageView imageProductImage;
         TextView txtProductName;
         TextView txtProductPrice;
-        TextView txtProductWeight;
+        TextView txtProductSize;
         TextView txtProductQty;
         ImageButton removeitemfromcart;
         Button minusButtonincart;
@@ -108,7 +107,7 @@ public class customadapaterforCart extends RecyclerView.Adapter<customadapaterfo
             imageProductImage=view.findViewById(R.id.idProductImage);
             txtProductName=view.findViewById(R.id.idProductName);
             txtProductPrice = view.findViewById(R.id.idProductPrice);
-//            txtProductWeight = view.findViewById(R.id.idProductWeight);
+            txtProductSize = view.findViewById(R.id.idProductSize);
             txtProductQty = view.findViewById(R.id.idProductQty);
             removeitemfromcart=view.findViewById(R.id.idProductRemove);
             minusButtonincart=view.findViewById(R.id.idMinusICon);

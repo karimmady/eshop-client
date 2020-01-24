@@ -55,14 +55,14 @@ class Items {
     public int productImage;
     public String productName;
     public String productPrice;
-    public String productWeight;
+    public String productSize;
     public String productQty;
 
-    public Items(String productName, int productImage, String productPrice, String productWeight, String productQty) {
+    public Items(String productName, int productImage, String productPrice, String productSize, String productQty) {
         this.productImage = productImage;
         this.productName = productName;
         this.productPrice = productPrice;
-        this.productWeight = productWeight;
+        this.productSize = productSize;
         this.productQty = productQty;
     }
 
@@ -82,12 +82,12 @@ class Items {
         this.productPrice = productPrice;
     }
 
-    public String getProductWeight() {
-        return productWeight;
+    public String getProductSize() {
+        return productSize;
     }
 
     public void setProductWeight(String productWeight) {
-        this.productWeight = productWeight;
+        this.productSize = productWeight;
     }
 
     public int getProductImage() {
