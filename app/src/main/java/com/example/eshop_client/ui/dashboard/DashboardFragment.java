@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.eshop_client.DataHolder;
 import com.example.eshop_client.MainActivity;
 import com.example.eshop_client.Network;
+import com.example.eshop_client.PastOrders;
 import com.example.eshop_client.R;
 import com.example.eshop_client.SetAddress;
 
@@ -43,17 +44,18 @@ public class DashboardFragment extends Fragment {
         final Button changepw = root.findViewById(R.id.changepassword);
         final Button changesize = root.findViewById(R.id.changesizes);
         final Button changeAddress = root.findViewById(R.id.changeAddress);
+        final Button pastOrders = root.findViewById(R.id.viewOrders);
         name = root.findViewById(R.id.nameDashboard);
         email = root.findViewById(R.id.emailDashboard);
         points = root.findViewById(R.id.pointsDashboard);
         addressField = root.findViewById(R.id.addressDashboard);
         try {
-            network.execute("http://192.168.1.11:3000/getUser?email=" + DataHolder.getInstance().getEmail()).get();
+            network.execute("http://192.168.1.20:3000/getUser?email=" + DataHolder.getInstance().getEmail()).get();
             System.out.println(network.jsono);
             name.setText((String)network.jsono.get("name"));
             email.setText((String)network.jsono.get("email"));
             password = (String)network.jsono.get("password");
-            new Network().execute("http://192.168.1.11:3000/getAddress?email=" + DataHolder.getInstance().getEmail()).get();
+            new Network().execute("http://192.168.1.20:3000/getAddress?email=" + DataHolder.getInstance().getEmail()).get();
             System.out.println(network.jsono);
             addressField.setText((String)network.jsono.get("address"));
             points.setText("0");
@@ -74,6 +76,13 @@ public class DashboardFragment extends Fragment {
                 startActivity(i);
             }
         });
+        pastOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), PastOrders.class);
+                startActivity(i);
+            }
+        });
         changepw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +100,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
-                    new Network().execute("http://192.168.1.11:3000/logout?email=" + DataHolder.getInstance().getEmail()).get();
+                    new Network().execute("http://192.168.1.20:3000/logout?email=" + DataHolder.getInstance().getEmail()).get();
                     Intent i = new Intent(getContext(), MainActivity.class);
                     startActivity(i);
                 }catch (Exception e){}
