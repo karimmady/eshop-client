@@ -18,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.home.PlaceOrder"></activity>
         <activity android:name=".OrderItems"></activity>
         <activity android:name=".PastOrders" />
         <activity android:name=".SetAddress" />

@@ -4,10 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.eshop_client.ui.home.PlaceOrder;
+
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Math.round;
@@ -23,7 +29,7 @@ public class Cart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
+        setTitle("Cart");
         //getting the recyclerview from xml
         mRecyclerView = (RecyclerView) findViewById(R.id.idRecyclerView);
         //mRecyclerView.setHasFixedSize(true);
@@ -46,8 +52,41 @@ public class Cart extends AppCompatActivity {
         }
         new DecimalFormat("##.##").format(finalamount);
         totalprice.setText(String.valueOf(finalamount)+ "$");
+        Button placeorder= findViewById(R.id.placeorder);
+        final ArrayList<String> ITEMNAME = new ArrayList<>();
+        final ArrayList<String> ITEMQuan = new ArrayList<>();
+        final ArrayList<String> ITEMPRICE = new ArrayList<>();
+        final ArrayList<Integer> ITEMIMAGE = new ArrayList<>();
+        for(int j=0; j<mProductList.size(); j++)
+        {
+            ITEMIMAGE.add(mProductList.get(j).productImage);
 
+            ITEMNAME.add(mProductList.get(j).productName);
+
+            ITEMQuan.add(mProductList.get(j).productQty);
+
+            ITEMPRICE.add(mProductList.get(j).productPrice);
+
+        }
+        placeorder.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Cart.this, PlaceOrder.class);
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("itemsname", ITEMNAME);
+                bundle.putStringArrayList("itemsprice", ITEMPRICE);
+                bundle.putStringArrayList("itemQtn", ITEMQuan);
+                bundle.putIntegerArrayList("itemimage",ITEMIMAGE);
+
+                i.putExtras(bundle);
+                startActivity(i);
+            }});
     }
+
+
+
+
+
 }
 
 

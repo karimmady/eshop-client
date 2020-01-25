@@ -47,6 +47,7 @@ public class Specific extends AppCompatActivity {
 
         TextView itempr=findViewById(R.id.itempr);
         final String INU = ItemName.substring(0, 1).toUpperCase() + ItemName.substring(1);
+        setTitle(INU);
         TextView itemna=findViewById(R.id.itemna);
         ImageView itemim=findViewById(R.id.itemim);
 
