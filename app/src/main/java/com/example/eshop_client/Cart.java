@@ -21,7 +21,7 @@ import static java.lang.Math.round;
 public class Cart extends AppCompatActivity {
     public cartUse cartuse=new cartUse();
     private RecyclerView mRecyclerView;
-    private customadapaterforCart mAdapter;
+    public customadapaterforCart mAdapter;
     private List<Items> mProductList;
 
 
@@ -50,36 +50,46 @@ public class Cart extends AppCompatActivity {
             amount=mProductList.get(i).productPrice.replace('$',' ');
             finalamount+=Double.valueOf(amount);
         }
-        new DecimalFormat("##.##").format(finalamount);
+        final Double ffinalamount=finalamount;
+        new DecimalFormat("####.##").format(finalamount);
         totalprice.setText(String.valueOf(finalamount)+ "$");
         Button placeorder= findViewById(R.id.placeorder);
         final ArrayList<String> ITEMNAME = new ArrayList<>();
         final ArrayList<String> ITEMQuan = new ArrayList<>();
         final ArrayList<String> ITEMPRICE = new ArrayList<>();
         final ArrayList<Integer> ITEMIMAGE = new ArrayList<>();
-        for(int j=0; j<mProductList.size(); j++)
-        {
-            ITEMIMAGE.add(mProductList.get(j).productImage);
+        final ArrayList<String> ITEMSIZE = new ArrayList<>();
+        final ArrayList<String> ITEMID =new ArrayList<>();
 
-            ITEMNAME.add(mProductList.get(j).productName);
-
-            ITEMQuan.add(mProductList.get(j).productQty);
-
-            ITEMPRICE.add(mProductList.get(j).productPrice);
-
-        }
         placeorder.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+
+                for(int j=0; j<mAdapter.grocderyItemList.size(); j++)
+                {
+                    ITEMIMAGE.add(mAdapter.grocderyItemList.get(j).productImage);
+                    ITEMNAME.add(mAdapter.grocderyItemList.get(j).productName);
+                    ITEMQuan.add(mAdapter.grocderyItemList.get(j).productQty);
+                    ITEMPRICE.add(mAdapter.grocderyItemList.get(j).productPrice);
+                    ITEMSIZE.add(mAdapter.grocderyItemList.get(j).productSize);
+                    ITEMID.add(mAdapter.grocderyItemList.get(j).productID);
+
+                }
+
+
                 Intent i = new Intent(Cart.this, PlaceOrder.class);
                 Bundle bundle = new Bundle();
                 bundle.putStringArrayList("itemsname", ITEMNAME);
                 bundle.putStringArrayList("itemsprice", ITEMPRICE);
                 bundle.putStringArrayList("itemQtn", ITEMQuan);
                 bundle.putIntegerArrayList("itemimage",ITEMIMAGE);
+                bundle.putStringArrayList("itemsize",ITEMSIZE);
+                bundle.putDouble("finalam",ffinalamount);
+                bundle.putStringArrayList("IDs",ITEMID);
 
                 i.putExtras(bundle);
                 startActivity(i);
+                finish();
             }});
     }
 
@@ -96,13 +106,15 @@ class Items {
     public String productPrice;
     public String productSize;
     public String productQty;
+    public String productID;
 
-    public Items(String productName, int productImage, String productPrice, String productSize, String productQty) {
+    public Items(String productName, int productImage, String productPrice, String productSize, String productQty,String productID) {
         this.productImage = productImage;
         this.productName = productName;
         this.productPrice = productPrice;
         this.productSize = productSize;
         this.productQty = productQty;
+        this.productID=productID;
     }
 
     public String getProductQty() {
@@ -143,6 +155,16 @@ class Items {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public void setProductID(String productID)
+    {
+        this.productID=productID;
+    }
+
+    public String getProductID()
+    {
+        return productID;
     }
 }
 

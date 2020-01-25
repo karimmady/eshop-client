@@ -15,13 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class customadapaterforCart extends RecyclerView.Adapter<customadapaterforCart.GroceryProductViewHolder>{
-    private List<Items> grocderyItemList;
+    public List<Items> grocderyItemList;
+
     Cart context; //check this
-    Cart c= new Cart();
     public customadapaterforCart(List<Items> mProductList, Cart mainActivity) {
         this.grocderyItemList = mProductList;
         this.context = mainActivity;
     }
+
 
 
 
@@ -67,6 +68,7 @@ public class customadapaterforCart extends RecyclerView.Adapter<customadapaterfo
                 Double productPricefinal = Double.parseDouble(grocderyItemList.get(position).getProductPrice().replace('$',' '));
                 checkedPrice = checkedPrice-productPricefinal;
                 priceplease.setText(String.valueOf(checkedPrice)+'$');
+                grocderyItemList.get(position).setProductQty(String.valueOf(Integer.parseInt(grocderyItemList.get(position).getProductQty())-1));
             }
         });
 
@@ -84,7 +86,7 @@ public class customadapaterforCart extends RecyclerView.Adapter<customadapaterfo
                 Double productPricefinal = Double.parseDouble(grocderyItemList.get(position).getProductPrice().replace('$',' '));
                 checkedPrice = checkedPrice+ productPricefinal;
                 priceplease.setText(String.valueOf(checkedPrice)+'$');
-                //grocderyItemList.get(position).setProductQty(String.valueOf(Integer.parseInt(grocderyItemList.get(position).getProductQty()+1)));
+                grocderyItemList.get(position).setProductQty(String.valueOf(Integer.parseInt(grocderyItemList.get(position).getProductQty())+1));
 
 
             }
