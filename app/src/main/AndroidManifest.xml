@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SetAddress"></activity>
+        <activity android:name=".ui.home.PlaceOrder"></activity>
+        <activity android:name=".SetAddress" />
         <activity
             android:name=".ui.home.Specific"
             android:label="@string/title_activity_specific"
