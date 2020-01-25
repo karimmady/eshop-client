@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".PastOrders">
 
+    <ListView
+        android:id="@+id/listPastOrders"
+        android:layout_width="397dp"
+        android:layout_height="563dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
