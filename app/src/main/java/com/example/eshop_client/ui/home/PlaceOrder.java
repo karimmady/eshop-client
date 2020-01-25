@@ -11,17 +11,33 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.eshop_client.Cart;
 import com.example.eshop_client.DataHolder;
 import com.example.eshop_client.Network;
+import com.example.eshop_client.NetworkPost;
 import com.example.eshop_client.R;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlaceOrder extends AppCompatActivity {
     ArrayAdapter<String> CatAdapt3;
     Network network = new Network();
+    ArrayList<NameValuePair> data = new ArrayList<NameValuePair>();
+    String userAddress = new String();
+    ArrayList<String> ItemPrice=new ArrayList<String>();
+    ArrayList<String> ItemQTY=new ArrayList<String>();
+    ArrayList<String> ItemName=new ArrayList<String>();
+    ArrayList<Integer> ItemImage=new ArrayList<Integer>();
+    ArrayList<String> ItemSize=new ArrayList<>();
+    ArrayList<String> ItemID = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +45,8 @@ public class PlaceOrder extends AppCompatActivity {
         setContentView(R.layout.activity_place_order);
         final ListView list1 = findViewById(R.id.list1);
         Bundle Extras=getIntent().getExtras();
-        ArrayList<String> ItemPrice=new ArrayList<String>();
-        ArrayList<String> ItemQTY=new ArrayList<String>();
-        ArrayList<String> ItemName=new ArrayList<String>();
-        ArrayList<Integer> ItemImage=new ArrayList<Integer>();
-        ArrayList<String> ItemSize=new ArrayList<>();
-        ArrayList<String> ItemID = new ArrayList<>();
 
-        Double finalamount;
+        final Double finalamount;
 
         ItemName=Extras.getStringArrayList("itemsname");
         ItemQTY=Extras.getStringArrayList("itemQtn");
@@ -74,11 +84,43 @@ public class PlaceOrder extends AppCompatActivity {
         TextView address = findViewById(R.id.add);
         try{
         network.execute("http://10.0.2.2:3000/getAddress?email=" + DataHolder.getInstance().getEmail()).get();
-        address.setText((String)network.jsono.get("address"));
+        userAddress = (String)network.jsono.get("address");
+        address.setText(userAddress);
         }catch (Exception e){
             System.out.println(e);
         }
-
+        Button placeYourOrder = findViewById(R.id.placeYourOrder);
+        placeYourOrder.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                try {
+                    JSONObject orderInfo = new JSONObject();
+                    orderInfo.put("Email", DataHolder.getInstance().getEmail());
+                    orderInfo.put("address", userAddress);
+                    orderInfo.put("status", "pending");
+                    orderInfo.put("total", String.valueOf(finalamount));
+                    JSONArray orderItems = new JSONArray();
+                    for (int i = 0; i < ItemID.size(); i += 1) {
+                        JSONObject eachItem = new JSONObject();
+                        eachItem.put("ID", ItemID.get(i));
+                        eachItem.put("name",ItemName.get(i));
+                        eachItem.put("price",ItemPrice.get(i));
+                        eachItem.put("size",ItemSize.get(i));
+                        eachItem.put("QTY",ItemQTY.get(i));
+                        orderItems.put(eachItem);
+                    }
+                    orderInfo.put("items",orderItems);
+                    data.add(new BasicNameValuePair("data",orderInfo.toString()));
+                    DataHolder.getInstance().setPostInfo(data);
+                    new NetworkPost().execute("http://10.0.2.2:3000/putOrder").get();
+                    if(network.status == 200) {
+                        Toast.makeText(PlaceOrder.this, "Your order has been placed", Toast.LENGTH_LONG).show();
+                        //TODO:Empty cart and return to home
+                    }
+                }catch (Exception e){
+                    System.out.println(e);
+                }
+            }});
 
 
     }
@@ -92,6 +134,7 @@ class placeord{
     ArrayList<String> finallist=new ArrayList<>();
 
 
+
     placeord(ArrayList<String> id,ArrayList<String> name,ArrayList<String> qty, ArrayList<String> price,ArrayList<String> size)
     {
         this.id = id;
@@ -103,8 +146,10 @@ class placeord{
 
     public void addarrays()
     {
+
         for(int i=0;i<qty.size();i++)
         {
+
             finallist.add(i,id.get(i)+"         "+name.get(i)+"   "+qty.get(i)+"    "+price.get(i)+"     Size : "+size.get(i));
         }
 
