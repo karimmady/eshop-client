@@ -47,6 +47,7 @@ public class Brands extends AppCompatActivity {
     ArrayList<Integer> itemImage = new ArrayList<>();//(Arrays.asList(R.drawable.nike1, R.drawable.nike2, R.drawable.nike3,R.drawable.nike4));
     ArrayList<String> itemPrice = new ArrayList<>();
     ArrayList<String> itemSizes = new ArrayList<>();
+    ArrayList<String> itemID = new ArrayList<>();
     ArrayList<ArrayList<String>> allSizes = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,7 @@ public class Brands extends AppCompatActivity {
 
 
         try {
-            network.execute("http://192.168.1.11:3000/getbrands").get();
+            network.execute("http://10.0.2.2:3000/getbrands").get();
             brands = network.jsono;
             brandsArray = (JSONArray) brands.get("data");
             System.out.println(brandsArray);
@@ -102,6 +103,7 @@ public class Brands extends AppCompatActivity {
                 itemPrice.add((String)temp.get("price"));
                 JSONArray tempSize = (JSONArray) temp.get("size");
                 itemSizes.clear();
+                itemID.add(((String)temp.get("ID")));
                 for(int j = 0; j<tempSize.length();j+=1){
                     JSONObject eachSize = tempSize.getJSONObject(j);
                     itemSizes.add(eachSize.getString("name"));
@@ -116,7 +118,7 @@ public class Brands extends AppCompatActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(Brands.this,2);
         recyclerView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
         //  call the constructor of CustomAdapterThree   to send the reference and data to Adapter
-        CustomAdapterThree CustomAdapterThree   = new CustomAdapterThree  (Brands.this, itemName, itemImage,itemPrice,itemSizes,allSizes);
+        CustomAdapterThree CustomAdapterThree   = new CustomAdapterThree  (Brands.this, itemName, itemImage,itemPrice,itemSizes,allSizes,itemID);
         recyclerView.setAdapter(CustomAdapterThree); // set the Adapter to RecyclerView
 
 
@@ -148,15 +150,17 @@ public class Brands extends AppCompatActivity {
     ArrayList<String> itemSizes;
     ArrayList<Integer> itemImage;
     ArrayList<ArrayList<String>>allSizes;
+    ArrayList<String> itemID;
     Context context;
 
-    public CustomAdapterThree(Context context, ArrayList<String> itemName, ArrayList<Integer> itemImage,ArrayList<String> itemPrice,ArrayList<String> itemSizes, ArrayList<ArrayList<String>>allSizes) {
+    public CustomAdapterThree(Context context, ArrayList<String> itemName, ArrayList<Integer> itemImage,ArrayList<String> itemPrice,ArrayList<String> itemSizes, ArrayList<ArrayList<String>>allSizes,ArrayList<String>itemID) {
         this.context = context;
         this.itemPrice =itemPrice;
         this.itemName = itemName;
         this.itemImage = itemImage;
         this.itemSizes = itemSizes;
         this.allSizes = allSizes;
+        this.itemID=itemID;
     }
 
     @Override
@@ -184,6 +188,7 @@ public class Brands extends AppCompatActivity {
                 bundle.putString("itemprice",itemPrice.get(position));
                 bundle.putStringArrayList("itemsize",allSizes.get(position));
                 bundle.putInt("image",itemImage.get(position));
+                bundle.putString("ID",itemID.get(position));
                 i.putExtras(bundle);
                 context.startActivity(i);
             }

@@ -37,11 +37,13 @@ public class Specific extends AppCompatActivity {
         final String ItemName;
         final int ItemImage;
         ArrayList<String>ItemSize;
+        final String ItemID;
         final String ItemPrice;
         ItemName=Extras.getString("itemname");
         ItemImage=Extras.getInt("image");
         ItemSize=Extras.getStringArrayList("itemsize");
         ItemPrice=Extras.getString("itemprice");
+        ItemID=Extras.getString("ID");
         final Cart cartfinal= new Cart();
 
 
@@ -65,7 +67,7 @@ public class Specific extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cartfinal.cartuse.addtocart(ItemName,ItemImage,ItemPrice,s.getSelectedItem().toString(),"1");
+                cartfinal.cartuse.addtocart(ItemName,ItemImage,ItemPrice,s.getSelectedItem().toString(),"1",ItemID);
                 Toast.makeText(Specific.this,"added to cart succesfully",Toast.LENGTH_SHORT).show();
 
             }
