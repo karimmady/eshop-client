@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.eshop_client.ui.home.PlaceOrder;
 
@@ -65,32 +66,36 @@ public class Cart extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                for(int j=0; j<mAdapter.grocderyItemList.size(); j++)
-                {
-                    ITEMIMAGE.add(mAdapter.grocderyItemList.get(j).productImage);
-                    ITEMNAME.add(mAdapter.grocderyItemList.get(j).productName);
-                    ITEMQuan.add(mAdapter.grocderyItemList.get(j).productQty);
-                    ITEMPRICE.add(mAdapter.grocderyItemList.get(j).productPrice);
-                    ITEMSIZE.add(mAdapter.grocderyItemList.get(j).productSize);
-                    ITEMID.add(mAdapter.grocderyItemList.get(j).productID);
+                if (mProductList.size() == 0) {
+                    Toast.makeText(Cart.this, "Empty Cart", Toast.LENGTH_SHORT).show();
+                } else {
+                    for (int j = 0; j < mAdapter.grocderyItemList.size(); j++) {
+                        ITEMIMAGE.add(mAdapter.grocderyItemList.get(j).productImage);
+                        ITEMNAME.add(mAdapter.grocderyItemList.get(j).productName);
+                        ITEMQuan.add(mAdapter.grocderyItemList.get(j).productQty);
+                        ITEMPRICE.add(mAdapter.grocderyItemList.get(j).productPrice);
+                        ITEMSIZE.add(mAdapter.grocderyItemList.get(j).productSize);
+                        ITEMID.add(mAdapter.grocderyItemList.get(j).productID);
 
+                    }
+
+
+                    Intent i = new Intent(Cart.this, PlaceOrder.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArrayList("itemsname", ITEMNAME);
+                    bundle.putStringArrayList("itemsprice", ITEMPRICE);
+                    bundle.putStringArrayList("itemQtn", ITEMQuan);
+                    bundle.putIntegerArrayList("itemimage", ITEMIMAGE);
+                    bundle.putStringArrayList("itemsize", ITEMSIZE);
+                    bundle.putDouble("finalam", ffinalamount);
+                    bundle.putStringArrayList("IDs", ITEMID);
+
+                    i.putExtras(bundle);
+                    startActivity(i);
+                    finish();
                 }
-
-
-                Intent i = new Intent(Cart.this, PlaceOrder.class);
-                Bundle bundle = new Bundle();
-                bundle.putStringArrayList("itemsname", ITEMNAME);
-                bundle.putStringArrayList("itemsprice", ITEMPRICE);
-                bundle.putStringArrayList("itemQtn", ITEMQuan);
-                bundle.putIntegerArrayList("itemimage",ITEMIMAGE);
-                bundle.putStringArrayList("itemsize",ITEMSIZE);
-                bundle.putDouble("finalam",ffinalamount);
-                bundle.putStringArrayList("IDs",ITEMID);
-
-                i.putExtras(bundle);
-                startActivity(i);
-                finish();
-            }});
+            }
+        });
     }
 
 

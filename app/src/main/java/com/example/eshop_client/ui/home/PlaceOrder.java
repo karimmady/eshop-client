@@ -98,7 +98,7 @@ public class PlaceOrder extends AppCompatActivity {
                     orderInfo.put("Email", DataHolder.getInstance().getEmail());
                     orderInfo.put("address", userAddress);
                     orderInfo.put("status", "pending");
-                    orderInfo.put("total", String.valueOf(finalamount));
+                    orderInfo.put("total", String.valueOf(finalamount)+"$");
                     JSONArray orderItems = new JSONArray();
                     for (int i = 0; i < ItemID.size(); i += 1) {
                         JSONObject eachItem = new JSONObject();
