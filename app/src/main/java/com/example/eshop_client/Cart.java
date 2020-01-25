@@ -29,7 +29,7 @@ public class Cart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
+        setTitle("Cart");
         //getting the recyclerview from xml
         mRecyclerView = (RecyclerView) findViewById(R.id.idRecyclerView);
         //mRecyclerView.setHasFixedSize(true);
@@ -82,6 +82,11 @@ public class Cart extends AppCompatActivity {
                 startActivity(i);
             }});
     }
+
+
+
+
+
 }
 
 

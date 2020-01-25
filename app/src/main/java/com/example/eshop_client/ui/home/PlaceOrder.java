@@ -29,13 +29,6 @@ public class PlaceOrder extends AppCompatActivity {
         ItemImage=Extras.getIntegerArrayList("itemimage");
         placeord ALfinal=new placeord(ItemImage,ItemName,ItemQTY,ItemPrice);
 
-        ArrayList<String> Set=ALfinal.addarrays();
-
-        for(int i =0; i<Set.size();i++)
-        {
-
-
-        }
 
         ArrayAdapter<String> CatAdapt3 = new ArrayAdapter<String>(PlaceOrder.this, android.R.layout.simple_list_item_1,ALfinal.addarrays());
         list1.setAdapter(CatAdapt3);

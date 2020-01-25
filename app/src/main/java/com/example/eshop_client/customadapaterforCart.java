@@ -16,8 +16,8 @@ import java.util.List;
 
 public class customadapaterforCart extends RecyclerView.Adapter<customadapaterforCart.GroceryProductViewHolder>{
     private List<Items> grocderyItemList;
-    Context context;
-
+    Cart context; //check this
+    Cart c= new Cart();
     public customadapaterforCart(List<Items> mProductList, Cart mainActivity) {
         this.grocderyItemList = mProductList;
         this.context = mainActivity;
@@ -55,8 +55,18 @@ public class customadapaterforCart extends RecyclerView.Adapter<customadapaterfo
 
                 TextView Quant = holder.txtProductQty;
                 int QuantQ= Integer.valueOf(Quant.getText().toString());
+                if(QuantQ==1)
+                {
+                    Toast.makeText(context, "Sorry quantity cannot go under 1", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 QuantQ=QuantQ-1;
+                TextView priceplease = context.findViewById(R.id.totalprice);
                 Quant.setText(String.valueOf(QuantQ));
+                Double checkedPrice =Double.parseDouble(priceplease.getText().toString().replace('$',' '));
+                Double productPricefinal = Double.parseDouble(grocderyItemList.get(position).getProductPrice().replace('$',' '));
+                checkedPrice = checkedPrice-productPricefinal;
+                priceplease.setText(String.valueOf(checkedPrice)+'$');
             }
         });
 
@@ -69,6 +79,14 @@ public class customadapaterforCart extends RecyclerView.Adapter<customadapaterfo
                 int QuantQ= Integer.valueOf(Quant.getText().toString());
                 QuantQ=QuantQ+1;
                 Quant.setText(String.valueOf(QuantQ));
+                TextView priceplease = context.findViewById(R.id.totalprice);
+                Double checkedPrice =Double.parseDouble(priceplease.getText().toString().replace('$',' '));
+                Double productPricefinal = Double.parseDouble(grocderyItemList.get(position).getProductPrice().replace('$',' '));
+                checkedPrice = checkedPrice+ productPricefinal;
+                priceplease.setText(String.valueOf(checkedPrice)+'$');
+                //grocderyItemList.get(position).setProductQty(String.valueOf(Integer.parseInt(grocderyItemList.get(position).getProductQty()+1)));
+
+
             }
         });
 
@@ -76,10 +94,18 @@ public class customadapaterforCart extends RecyclerView.Adapter<customadapaterfo
         holder.removeitemfromcart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                TextView priceplease = context.findViewById(R.id.totalprice);
+                Double checkedPrice =Double.parseDouble(priceplease.getText().toString().replace('$',' '));
+                Double productPricefinal = Double.parseDouble(grocderyItemList.get(position).getProductPrice().replace('$',' '));
+                Double productQtyFinal= Double.parseDouble(holder.txtProductQty.getText().toString());
+                checkedPrice = checkedPrice - (productPricefinal*productQtyFinal);
+                priceplease.setText(String.valueOf(checkedPrice)+'$');
                 grocderyItemList.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, grocderyItemList.size());
-                holder.itemView.setVisibility(View.GONE);            }
+                holder.itemView.setVisibility(View.GONE);
+            }
         });
 
 
@@ -114,4 +140,6 @@ public class customadapaterforCart extends RecyclerView.Adapter<customadapaterfo
             plusButtonincart=view.findViewById(R.id.idPlusIcon);
         }
     }
+
 }
+
