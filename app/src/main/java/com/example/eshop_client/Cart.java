@@ -79,7 +79,6 @@ public class Cart extends AppCompatActivity {
 
                 Intent i = new Intent(Cart.this, PlaceOrder.class);
                 Bundle bundle = new Bundle();
-
                 bundle.putStringArrayList("itemsname", ITEMNAME);
                 bundle.putStringArrayList("itemsprice", ITEMPRICE);
                 bundle.putStringArrayList("itemQtn", ITEMQuan);

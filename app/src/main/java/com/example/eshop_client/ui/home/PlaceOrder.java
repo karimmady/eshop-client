@@ -2,6 +2,7 @@ package com.example.eshop_client.ui.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 public class PlaceOrder extends AppCompatActivity {
     ArrayAdapter<String> CatAdapt3;
     Network network = new Network();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,7 +113,6 @@ class placeord{
     public ArrayList<String> returnfinalArray()
     {
         return finallist;
-
     }
 
 

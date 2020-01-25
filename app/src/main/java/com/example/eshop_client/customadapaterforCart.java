@@ -18,9 +18,6 @@ public class customadapaterforCart extends RecyclerView.Adapter<customadapaterfo
     public List<Items> grocderyItemList;
 
     Cart context; //check this
-
-
-
     public customadapaterforCart(List<Items> mProductList, Cart mainActivity) {
         this.grocderyItemList = mProductList;
         this.context = mainActivity;
@@ -72,7 +69,6 @@ public class customadapaterforCart extends RecyclerView.Adapter<customadapaterfo
                 checkedPrice = checkedPrice-productPricefinal;
                 priceplease.setText(String.valueOf(checkedPrice)+'$');
                 grocderyItemList.get(position).setProductQty(String.valueOf(Integer.parseInt(grocderyItemList.get(position).getProductQty())-1));
-
             }
         });
 
