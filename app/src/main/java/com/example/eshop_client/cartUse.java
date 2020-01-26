@@ -18,4 +18,9 @@ public class cartUse {
     {
         return mProductList;
     }
+
+    public void truncateList()
+    {
+        mProductList.clear();
+    }
 }

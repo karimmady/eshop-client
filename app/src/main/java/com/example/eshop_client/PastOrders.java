@@ -30,8 +30,9 @@ public class PastOrders extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_past_orders);
+        setTitle("Past Orders");
         try {
-            network.execute("http://10.0.2.2:3000/getOrder?email="+DataHolder.getInstance().getEmail()).get();
+            network.execute("http://192.168.1.20:3000/getOrder?email="+DataHolder.getInstance().getEmail()).get();
             response = network.jsono;
             orders = (JSONArray) response.get("data");
             for( int i = 0; i<orders.length();i+=1){

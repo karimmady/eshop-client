@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.eshop_client.Cart;
 import com.example.eshop_client.DataHolder;
+import com.example.eshop_client.Home;
 import com.example.eshop_client.Network;
 import com.example.eshop_client.R;
 
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 
 import com.example.eshop_client.NetworkPost;
 import com.example.eshop_client.R;
+import com.example.eshop_client.SetAddress;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -50,9 +52,10 @@ public class PlaceOrder extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_order);
         final ListView list1 = findViewById(R.id.list1);
+        final Button ChangeAddress = findViewById(R.id.change);
         Bundle Extras=getIntent().getExtras();
 
-
+        final Cart c=new Cart();
         ItemName=Extras.getStringArrayList("itemsname");
         ItemQTY=Extras.getStringArrayList("itemQtn");
         ItemPrice=Extras.getStringArrayList("itemsprice");
@@ -69,6 +72,14 @@ public class PlaceOrder extends AppCompatActivity {
             list1.setAdapter(CatAdapt3);
 
         Button Manageitems= findViewById(R.id.mngitems);
+
+        ChangeAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(PlaceOrder.this, SetAddress.class);
+                startActivity(i);
+            }
+        });
         Manageitems.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -89,7 +100,7 @@ public class PlaceOrder extends AppCompatActivity {
         s.setAdapter(adapter);
         TextView address = findViewById(R.id.add);
         try{
-        network.execute("http://10.0.2.2:3000/getAddress?email=" + DataHolder.getInstance().getEmail()).get();
+        network.execute("http://192.168.1.20:3000/getAddress?email=" + DataHolder.getInstance().getEmail()).get();
         userAddress = (String)network.jsono.get("address");
         address.setText(userAddress);
         }catch (Exception e){
@@ -118,10 +129,18 @@ public class PlaceOrder extends AppCompatActivity {
                     orderInfo.put("items",orderItems);
                     data.add(new BasicNameValuePair("data",orderInfo.toString()));
                     DataHolder.getInstance().setPostInfo(data);
+
                     networkPost.execute("http://10.0.2.2:3000/putOrder").get();
                     if(networkPost.status == 200) {
+
                         Toast.makeText(PlaceOrder.this, "Your order has been placed", Toast.LENGTH_LONG).show();
-                        //TODO:Empty cart and return to home
+                        c.cartuse.truncateList();
+                        Intent i = new Intent(PlaceOrder.this, Home.class);
+                        startActivity(i);
+                    }
+                    else
+                    {
+                        Toast.makeText(PlaceOrder.this,"Please enter your address",Toast.LENGTH_SHORT).show();
                     }
                 }catch (Exception e){
                     System.out.println(e);
