@@ -146,6 +146,7 @@ public class PlaceOrder extends AppCompatActivity {
 
                     networkPost.execute("http://10.0.2.2:3000/putOrder").get();
 
+                    System.out.println(networkPost.status);
                     if(networkPost.status == 200) {
 
                         Toast.makeText(PlaceOrder.this, "Your order has been placed", Toast.LENGTH_LONG).show();
