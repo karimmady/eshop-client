@@ -22,6 +22,7 @@ public class SetAddress extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_address);
+        setTitle("Set Address");
         submitAddress = findViewById(R.id.submitAddress);
         submitAddress.setOnClickListener(new View.OnClickListener() {
             @Override

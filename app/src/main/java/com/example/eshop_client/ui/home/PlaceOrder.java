@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -15,13 +17,17 @@ import android.widget.Toast;
 
 import com.example.eshop_client.Cart;
 import com.example.eshop_client.DataHolder;
+import com.example.eshop_client.Home;
 import com.example.eshop_client.Network;
 import com.example.eshop_client.R;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import com.example.eshop_client.NetworkPost;
 import com.example.eshop_client.R;
+import com.example.eshop_client.SetAddress;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -34,24 +40,29 @@ import java.util.List;
 public class PlaceOrder extends AppCompatActivity {
     ArrayAdapter<String> CatAdapt3;
     Network network = new Network();
-    ArrayList<NameValuePair> data = new ArrayList<NameValuePair>();
+    ArrayList<NameValuePair> data = new ArrayList<>();
     String userAddress = new String();
-    ArrayList<String> ItemPrice=new ArrayList<String>();
-    ArrayList<String> ItemQTY=new ArrayList<String>();
-    ArrayList<String> ItemName=new ArrayList<String>();
-    ArrayList<Integer> ItemImage=new ArrayList<Integer>();
+    ArrayList<String> ItemPrice=new ArrayList<>();
+    ArrayList<String> ItemQTY=new ArrayList<>();
+    ArrayList<String> ItemName=new ArrayList<>();
+    ArrayList<Integer> ItemImage=new ArrayList<>();
     ArrayList<String> ItemSize=new ArrayList<>();
     ArrayList<String> ItemID = new ArrayList<>();
     Double finalamount;
+
     NetworkPost networkPost = new NetworkPost();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_order);
         final ListView list1 = findViewById(R.id.list1);
+        final Button ChangeAddress = findViewById(R.id.change);
         Bundle Extras=getIntent().getExtras();
 
+
+        final Cart c=new Cart();
 
         ItemName=Extras.getStringArrayList("itemsname");
         ItemQTY=Extras.getStringArrayList("itemQtn");
@@ -69,6 +80,14 @@ public class PlaceOrder extends AppCompatActivity {
             list1.setAdapter(CatAdapt3);
 
         Button Manageitems= findViewById(R.id.mngitems);
+
+        ChangeAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(PlaceOrder.this, SetAddress.class);
+                startActivity(i);
+            }
+        });
         Manageitems.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -78,7 +97,10 @@ public class PlaceOrder extends AppCompatActivity {
             }});
 
         TextView TOTALAMOUNT=findViewById(R.id.totamount);
-        TOTALAMOUNT.setText("Total Amount "+String.valueOf(ALfinal.addprices())+" $");
+        Double truncated_price = BigDecimal.valueOf(ALfinal.addprices())
+                .setScale(3, RoundingMode.HALF_UP)
+                .doubleValue();
+        TOTALAMOUNT.setText("Total Amount "+String.valueOf(truncated_price+" $"));
 
 
         final Spinner s = (Spinner) findViewById(R.id.spinner);
@@ -118,16 +140,81 @@ public class PlaceOrder extends AppCompatActivity {
                     orderInfo.put("items",orderItems);
                     data.add(new BasicNameValuePair("data",orderInfo.toString()));
                     DataHolder.getInstance().setPostInfo(data);
+
                     networkPost.execute("http://10.0.2.2:3000/putOrder").get();
                     if(networkPost.status == 200) {
+
                         Toast.makeText(PlaceOrder.this, "Your order has been placed", Toast.LENGTH_LONG).show();
-                        //TODO:Empty cart and return to home
+                        c.cartuse.truncateList();
+                        Intent i = new Intent(PlaceOrder.this, Home.class);
+                        startActivity(i);
+                    }
+                    else
+                    {
+                        Toast.makeText(PlaceOrder.this,"Please enter your address",Toast.LENGTH_SHORT).show();
                     }
                 }catch (Exception e){
                     System.out.println(e);
                 }
-            }});
 
+            }});
+            final EditText promocodetext = findViewById(R.id.promocodetextd);
+            ImageButton promocode = findViewById(R.id.promocodes);
+            final TextView total=findViewById(R.id.totamount);
+
+            ArrayList<String> validPromocodes=new ArrayList<>();
+            validPromocodes.add("eShop10");
+            validPromocodes.add("eShop15");
+            validPromocodes.add("eShop25");
+        promocode.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (String.valueOf(promocodetext.getText()).isEmpty())
+                        Toast.makeText(PlaceOrder.this,"Empty Promo Code",Toast.LENGTH_SHORT).show();
+                    else if (String.valueOf(promocodetext.getText()).equals("eShop10"))
+                    {
+                        Toast.makeText(PlaceOrder.this,"Applied eShop10",Toast.LENGTH_SHORT).show();
+                        promocodetext.setText(" ");
+                        double x=Double.parseDouble(total.getText().toString().replace('$',' ').replace("Total Amount"," "));
+                        x=x*0.9;
+                        Double truncated_price = BigDecimal.valueOf(x)
+                                .setScale(3, RoundingMode.HALF_UP)
+                                .doubleValue();
+                        total.setText("After Dicount "+String.valueOf(truncated_price)+" $");
+
+                    }
+                    else if (String.valueOf(promocodetext.getText()).equals("eShop15"))
+                    {
+                        Toast.makeText(PlaceOrder.this,"Applied eShop15",Toast.LENGTH_SHORT).show();
+                        promocodetext.setText(" ");
+                        double x=Double.parseDouble(total.getText().toString().replace('$',' ').replace("Total Amount"," "));
+                        x=x*0.85;
+                        Double truncated_price = BigDecimal.valueOf(x)
+                                .setScale(3, RoundingMode.HALF_UP)
+                                .doubleValue();
+                        total.setText("After Dicount "+String.valueOf(truncated_price)+" $");
+
+                    }
+                    else if (String.valueOf(promocodetext.getText()).equals("eShop25"))
+                    {
+                        Toast.makeText(PlaceOrder.this,"Applied eShop25",Toast.LENGTH_SHORT).show();
+                        promocodetext.setText(" ");
+                        double x=Double.parseDouble(total.getText().toString().replace('$',' ').replace("Total Amount"," "));
+                        x=x*0.75;
+                        Double truncated_price = BigDecimal.valueOf(x)
+                                .setScale(3, RoundingMode.HALF_UP)
+                                .doubleValue();
+                        total.setText("After Dicount "+String.valueOf(truncated_price)+" $");
+
+                    }
+                    else
+                        Toast.makeText(PlaceOrder.this,"Invalid Code",Toast.LENGTH_SHORT).show();
+
+
+
+
+                }
+            });
 
     }
 }
