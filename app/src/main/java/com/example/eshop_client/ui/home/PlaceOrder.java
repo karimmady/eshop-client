@@ -43,7 +43,7 @@ public class PlaceOrder extends AppCompatActivity {
     ArrayList<String> ItemSize=new ArrayList<>();
     ArrayList<String> ItemID = new ArrayList<>();
     Double finalamount;
-
+    NetworkPost networkPost = new NetworkPost();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class PlaceOrder extends AppCompatActivity {
         ItemSize =Extras.getStringArrayList("itemsize");
         finalamount=Extras.getDouble("finalam");
         ItemID = Extras.getStringArrayList("IDs");
-        placeord ALfinal=new placeord(ItemID,ItemName,ItemQTY,ItemPrice,ItemSize);
+        final placeord ALfinal=new placeord(ItemID,ItemName,ItemQTY,ItemPrice,ItemSize);
 
 
 
@@ -104,7 +104,7 @@ public class PlaceOrder extends AppCompatActivity {
                     orderInfo.put("Email", DataHolder.getInstance().getEmail());
                     orderInfo.put("address", userAddress);
                     orderInfo.put("status", "pending");
-                    orderInfo.put("total", String.valueOf(finalamount)+"$");
+                    orderInfo.put("total", String.valueOf(ALfinal.addprices())+"$");
                     JSONArray orderItems = new JSONArray();
                     for (int i = 0; i < ItemID.size(); i += 1) {
                         JSONObject eachItem = new JSONObject();
@@ -118,8 +118,8 @@ public class PlaceOrder extends AppCompatActivity {
                     orderInfo.put("items",orderItems);
                     data.add(new BasicNameValuePair("data",orderInfo.toString()));
                     DataHolder.getInstance().setPostInfo(data);
-                    new NetworkPost().execute("http://10.0.2.2:3000/putOrder").get();
-                    if(network.status == 200) {
+                    networkPost.execute("http://10.0.2.2:3000/putOrder").get();
+                    if(networkPost.status == 200) {
                         Toast.makeText(PlaceOrder.this, "Your order has been placed", Toast.LENGTH_LONG).show();
                         //TODO:Empty cart and return to home
                     }
