@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".contact">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="166dp"
+        android:layout_height="185dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginRight="120dp"
+        android:layout_x="118dp"
+        android:layout_y="9dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/eshop" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="51dp"
+        android:layout_height="55dp"
+        android:layout_x="38dp"
+        android:layout_y="240dp"
+        app:srcCompat="@drawable/eshopcontact"
+        tools:layout_editor_absoluteX="46dp"
+        tools:layout_editor_absoluteY="265dp" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="89dp"
+        android:layout_height="55dp"
+        android:layout_x="21dp"
+        android:layout_y="324dp"
+        android:tint="@android:color/black"
+        app:srcCompat="@android:drawable/ic_dialog_email"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="348dp" />
+
+    <TextView
+        android:id="@+id/emaileshop"
+        android:layout_width="244dp"
+        android:layout_height="45dp"
+        android:layout_x="143dp"
+        android:layout_y="336dp"
+        android:text="eshop@eshop.com"
+        tools:layout_editor_absoluteX="198dp"
+        tools:layout_editor_absoluteY="273dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/phnenumber"
+        android:layout_width="244dp"
+        android:layout_height="45dp"
+        android:layout_x="138dp"
+        android:layout_y="244dp"
+        android:text="01001788626"
+        tools:layout_editor_absoluteX="198dp"
+        tools:layout_editor_absoluteY="273dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="20dp"/>
+</AbsoluteLayout>

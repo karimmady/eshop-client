@@ -57,20 +57,32 @@ public class Home extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        menu.add(0, 0, 0, "Cart").setIcon(R.drawable.cart)
+        menu.add(0, 0, 1, "Cart").setIcon(R.drawable.cart)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-        menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        menu.add(0,1,0,"contact").setIcon(R.drawable.contactus)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.getItem(1).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 Intent i = new Intent (Home.this,Cart.class);
                 startActivity(i);
                 return true;
+
+            }
+        });
+        menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent i = new Intent (Home.this,contact.class);
+                startActivity(i);
+                return true;
+
             }
         });
 
 
-                return true;
+
+        return true;
     }
 
 }
