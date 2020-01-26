@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Checkable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,10 +13,13 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 public class customadapaterforCart extends RecyclerView.Adapter<customadapaterforCart.GroceryProductViewHolder>{
     public List<Items> grocderyItemList;
+    static double prev_price=0;
 
     Cart context; //check this
     public customadapaterforCart(List<Items> mProductList, Cart mainActivity) {
@@ -38,7 +42,7 @@ public class customadapaterforCart extends RecyclerView.Adapter<customadapaterfo
     public void onBindViewHolder(final GroceryProductViewHolder holder, final int position) {
         holder.imageProductImage.setImageResource(grocderyItemList.get(position).getProductImage());
         holder.txtProductName.setText(grocderyItemList.get(position).getProductName());
-        holder.txtProductPrice.setText(grocderyItemList.get(position).getProductPrice());
+        holder.txtProductPrice.setText(grocderyItemList.get(position).getProductOriginalPrice());
        holder.txtProductSize.setText(grocderyItemList.get(position).getProductSize());
         holder.txtProductQty.setText(grocderyItemList.get(position).getProductQty());
         holder.imageProductImage.setOnClickListener(new View.OnClickListener() {
@@ -65,10 +69,15 @@ public class customadapaterforCart extends RecyclerView.Adapter<customadapaterfo
                 TextView priceplease = context.findViewById(R.id.totalprice);
                 Quant.setText(String.valueOf(QuantQ));
                 Double checkedPrice =Double.parseDouble(priceplease.getText().toString().replace('$',' '));
-                Double productPricefinal = Double.parseDouble(grocderyItemList.get(position).getProductPrice().replace('$',' '));
-                checkedPrice = checkedPrice-productPricefinal;
-                priceplease.setText(String.valueOf(checkedPrice)+'$');
+                Double Itemoriginalprice = Double.parseDouble(grocderyItemList.get(position).getProductOriginalPrice().replace('$',' '));
+                checkedPrice = checkedPrice-Itemoriginalprice;
+                Double truncated_price = BigDecimal.valueOf(checkedPrice)
+                        .setScale(3, RoundingMode.HALF_UP)
+                        .doubleValue();
+                priceplease.setText(String.valueOf(truncated_price)+'$');
                 grocderyItemList.get(position).setProductQty(String.valueOf(Integer.parseInt(grocderyItemList.get(position).getProductQty())-1));
+                grocderyItemList.get(position).setProductPrice(String.valueOf(checkedPrice)+"$");
+
             }
         });
 
@@ -76,17 +85,20 @@ public class customadapaterforCart extends RecyclerView.Adapter<customadapaterfo
             @Override
             public void onClick(View v) {
                 Button removeImg= holder.plusButtonincart;
-
                 TextView Quant = holder.txtProductQty;
                 int QuantQ= Integer.valueOf(Quant.getText().toString());
                 QuantQ=QuantQ+1;
                 Quant.setText(String.valueOf(QuantQ));
                 TextView priceplease = context.findViewById(R.id.totalprice);
-                Double checkedPrice =Double.parseDouble(priceplease.getText().toString().replace('$',' '));
-                Double productPricefinal = Double.parseDouble(grocderyItemList.get(position).getProductPrice().replace('$',' '));
-                checkedPrice = checkedPrice+ productPricefinal;
-                priceplease.setText(String.valueOf(checkedPrice)+'$');
                 grocderyItemList.get(position).setProductQty(String.valueOf(Integer.parseInt(grocderyItemList.get(position).getProductQty())+1));
+                Double ItemPricetest = Double.parseDouble(grocderyItemList.get(position).getProductPrice().replace("$"," "));
+                Double Itemoriginalprice = Double.parseDouble(grocderyItemList.get(position).getProductOriginalPrice().replace('$',' '));
+                grocderyItemList.get(position).setProductPrice(String.valueOf(Itemoriginalprice+ItemPricetest));
+                double finalprice = Double.parseDouble(priceplease.getText().toString().replace('$', ' ')) + Itemoriginalprice;
+                Double truncated_price = BigDecimal.valueOf(finalprice)
+                        .setScale(3, RoundingMode.HALF_UP)
+                        .doubleValue();
+                priceplease.setText(String.valueOf(truncated_price)+'$');
 
 
             }
@@ -96,17 +108,24 @@ public class customadapaterforCart extends RecyclerView.Adapter<customadapaterfo
         holder.removeitemfromcart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                RecyclerView cartlist = context.findViewById(R.id.idRecyclerView);
                 TextView priceplease = context.findViewById(R.id.totalprice);
                 Double checkedPrice =Double.parseDouble(priceplease.getText().toString().replace('$',' '));
-                Double productPricefinal = Double.parseDouble(grocderyItemList.get(position).getProductPrice().replace('$',' '));
+                Double Itemoriginalprice = Double.parseDouble(grocderyItemList.get(position).getProductOriginalPrice().replace('$',' '));
                 Double productQtyFinal= Double.parseDouble(holder.txtProductQty.getText().toString());
-                checkedPrice = checkedPrice - (productPricefinal*productQtyFinal);
-                priceplease.setText(String.valueOf(checkedPrice)+'$');
+                checkedPrice = checkedPrice - (Itemoriginalprice*productQtyFinal);
+                Double truncated_price = BigDecimal.valueOf(checkedPrice)
+                        .setScale(3, RoundingMode.HALF_UP)
+                        .doubleValue();
+                priceplease.setText(String.valueOf(truncated_price) +'$');
+
                 grocderyItemList.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, grocderyItemList.size());
                 holder.itemView.setVisibility(View.GONE);
+                if(grocderyItemList.isEmpty())
+                {priceplease.setText("0.0 $");}
+
             }
         });
 

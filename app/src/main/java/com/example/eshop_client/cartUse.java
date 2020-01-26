@@ -8,7 +8,8 @@ public class cartUse {
 
     public void addtocart(String name, int photo,String price,String Size,String Quantity,String id)
     {
-        Items c = new Items(name,photo,price,Size,Quantity,id);
+        Items c = new Items(name,photo,price,Size,Quantity,id,price);
+
         mProductList.add(c);
     }
 

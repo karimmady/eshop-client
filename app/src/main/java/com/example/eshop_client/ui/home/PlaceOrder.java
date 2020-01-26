@@ -16,6 +16,10 @@ import android.widget.Toast;
 import com.example.eshop_client.Cart;
 import com.example.eshop_client.DataHolder;
 import com.example.eshop_client.Network;
+import com.example.eshop_client.R;
+
+import java.util.ArrayList;
+
 import com.example.eshop_client.NetworkPost;
 import com.example.eshop_client.R;
 
@@ -38,6 +42,8 @@ public class PlaceOrder extends AppCompatActivity {
     ArrayList<Integer> ItemImage=new ArrayList<Integer>();
     ArrayList<String> ItemSize=new ArrayList<>();
     ArrayList<String> ItemID = new ArrayList<>();
+    Double finalamount;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +52,6 @@ public class PlaceOrder extends AppCompatActivity {
         final ListView list1 = findViewById(R.id.list1);
         Bundle Extras=getIntent().getExtras();
 
-        final Double finalamount;
 
         ItemName=Extras.getStringArrayList("itemsname");
         ItemQTY=Extras.getStringArrayList("itemQtn");
@@ -73,7 +78,8 @@ public class PlaceOrder extends AppCompatActivity {
             }});
 
         TextView TOTALAMOUNT=findViewById(R.id.totamount);
-        TOTALAMOUNT.setText("Total Amount "+String.valueOf(finalamount)+" $");
+        TOTALAMOUNT.setText("Total Amount "+String.valueOf(ALfinal.addprices())+" $");
+
 
         final Spinner s = (Spinner) findViewById(R.id.spinner);
          ArrayList<String> paymentmethod= new ArrayList<>();
@@ -158,6 +164,16 @@ class placeord{
     public ArrayList<String> returnfinalArray()
     {
         return finallist;
+    }
+
+    public double addprices()
+    {
+        double finalprice=0;
+        for (int i =0 ; i<price.size(); i++)
+        {
+            finalprice += Double.parseDouble(this.price.get(i).replace('$',' '));
+        }
+        return finalprice;
     }
 
 
