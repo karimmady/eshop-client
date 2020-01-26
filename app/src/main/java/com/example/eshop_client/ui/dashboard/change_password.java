@@ -21,7 +21,7 @@ public class change_password extends AppCompatActivity {
         setContentView(R.layout.activity_change_password);
 
         Button submit= findViewById(R.id.submit);
-
+        setTitle("Change Password");
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
