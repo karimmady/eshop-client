@@ -10,12 +10,12 @@
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="122dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
+        android:layout_width="115dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="108dp"
-        android:text="Points gained"
+        android:text="Points"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -101,35 +101,24 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@drawable/emailicon" />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="29dp"
         android:layout_height="34dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:srcCompat="@drawable/contact" />
-
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="25dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="108dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6"
-        app:srcCompat="@drawable/points" />
 
     <Button
         android:id="@+id/changepassword"
@@ -208,19 +197,25 @@
         app:layout_constraintTop_toBottomOf="@+id/logout"
         app:rippleColor="@color/white" />
 
-<!--    <Button-->
-<!--        android:id="@+id/night"-->
-<!--        android:layout_width="153dp"-->
-<!--        android:layout_height="55dp"-->
-<!--        android:layout_marginTop="132dp"-->
-<!--        android:background="@layout/button_background"-->
-<!--        android:text="Set Your Address"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/logout"-->
-<!--        app:rippleColor="@color/white" />-->
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:srcCompat="@drawable/ic_home_black_24dp" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="60dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/coincoin"
+        tools:layout_editor_absoluteX="5dp" />
 
     <Switch
         android:id="@+id/night"

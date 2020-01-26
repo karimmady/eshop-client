@@ -58,6 +58,7 @@ public class PlaceOrder extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_order);
+        setTitle("Order Confirmation");
         final ListView list1 = findViewById(R.id.list1);
         final Button ChangeAddress = findViewById(R.id.change);
         Bundle Extras=getIntent().getExtras();
@@ -112,7 +113,7 @@ public class PlaceOrder extends AppCompatActivity {
         s.setAdapter(adapter);
         TextView address = findViewById(R.id.add);
         try{
-        network.execute("http://10.0.2.2:3000/getAddress?email=" + DataHolder.getInstance().getEmail()).get();
+        network.execute("http://192.168.1.20:3000/getAddress?email=" + DataHolder.getInstance().getEmail()).get();
         userAddress = (String)network.jsono.get("address");
         address.setText(userAddress);
         }catch (Exception e){
@@ -145,7 +146,6 @@ public class PlaceOrder extends AppCompatActivity {
                     DataHolder.getInstance().setPostInfo(data);
 
                     networkPost.execute("http://10.0.2.2:3000/putOrder").get();
-
                     System.out.println(networkPost.status);
                     if(networkPost.status == 200) {
 
