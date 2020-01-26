@@ -117,7 +117,7 @@
         android:textSize="18dp" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/promocodetextd"
         android:layout_width="155dp"
         android:layout_height="wrap_content"
         android:layout_x="151dp"
@@ -127,7 +127,7 @@
         android:inputType="textPersonName" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/promocodes"
         android:layout_width="64dp"
         android:layout_height="wrap_content"
         android:layout_x="319dp"

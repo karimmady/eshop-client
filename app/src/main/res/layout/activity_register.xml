@@ -71,7 +71,7 @@
         android:layout_height="60dp"
         android:layout_x="50dp"
         android:layout_y="467dp"
-        android:background="@color/deepSkyBlue"
+        android:background="@layout/button_background"
         android:text="Register"
         app:rippleColor="@color/white"
         android:textAllCaps="false"

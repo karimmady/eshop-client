@@ -41,6 +41,7 @@ public class SetSizes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_sizes);
         radioGroup = findViewById(R.id.sizeRadioGroup);
+        setTitle("Set Sizes");
         submit = findViewById(R.id.submitSize);
         submit.setOnClickListener(new View.OnClickListener() {
 
