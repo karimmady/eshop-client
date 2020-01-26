@@ -51,7 +51,7 @@ public class PastOrders extends AppCompatActivity {
         final ListView listPastOrder = findViewById(R.id.listPastOrders);
         for(int i=0;i<total.size();i++)
         {
-                    finalarraypastorders.add("OrderID :"+orderID.get(i)+"\n"+"Status :"+status.get(i)+"\n"+"Total :"+total.get(i));
+                    finalarraypastorders.add("\n"+"OrderID :"+orderID.get(i)+"\n"+"Status :"+status.get(i)+"\n"+"Total :"+total.get(i)+"\n");
         }
 
 
