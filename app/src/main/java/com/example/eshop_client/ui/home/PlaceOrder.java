@@ -14,7 +14,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import com.example.eshop_client.Cart;
 import com.example.eshop_client.DataHolder;
 import com.example.eshop_client.Home;
@@ -61,8 +62,8 @@ public class PlaceOrder extends AppCompatActivity {
         final Button ChangeAddress = findViewById(R.id.change);
         Bundle Extras=getIntent().getExtras();
 
-
         final Cart c=new Cart();
+
 
         ItemName=Extras.getStringArrayList("itemsname");
         ItemQTY=Extras.getStringArrayList("itemQtn");
@@ -121,6 +122,8 @@ public class PlaceOrder extends AppCompatActivity {
         placeYourOrder.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Date date = new Date();
                 try {
                     JSONObject orderInfo = new JSONObject();
                     orderInfo.put("Email", DataHolder.getInstance().getEmail());
@@ -142,6 +145,7 @@ public class PlaceOrder extends AppCompatActivity {
                     DataHolder.getInstance().setPostInfo(data);
 
                     networkPost.execute("http://10.0.2.2:3000/putOrder").get();
+
                     if(networkPost.status == 200) {
 
                         Toast.makeText(PlaceOrder.this, "Your order has been placed", Toast.LENGTH_LONG).show();
