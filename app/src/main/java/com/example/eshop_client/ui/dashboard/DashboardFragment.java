@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -18,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.eshop_client.DataHolder;
+import com.example.eshop_client.Home;
 import com.example.eshop_client.MainActivity;
 import com.example.eshop_client.Network;
 import com.example.eshop_client.PastOrders;
@@ -29,12 +32,11 @@ import java.io.InputStream;
 import static android.content.Context.MODE_PRIVATE;
 
 public class DashboardFragment extends Fragment {
-    SharedPreferences preferences;
-
     private DashboardViewModel dashboardViewModel;
     String password = new String();
     Network network = new Network();
     TextView name, points,email, addressField;
+    boolean nightMode;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel =
@@ -45,6 +47,9 @@ public class DashboardFragment extends Fragment {
         final Button changesize = root.findViewById(R.id.changesizes);
         final Button changeAddress = root.findViewById(R.id.changeAddress);
         final Button pastOrders = root.findViewById(R.id.viewOrders);
+        final Switch night = (Switch) root.findViewById(R.id.night);
+        night.setChecked(DataHolder.getInstance().getNight());
+        //final Button night = root.findViewById(R.id.night);
         name = root.findViewById(R.id.nameDashboard);
         email = root.findViewById(R.id.emailDashboard);
         points = root.findViewById(R.id.pointsDashboard);
@@ -62,6 +67,16 @@ public class DashboardFragment extends Fragment {
         }catch (Exception e){
             System.out.println(e);
         }
+        night.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked)
+                    DataHolder.getInstance().setNight(false);
+                else
+                    DataHolder.getInstance().setNight(true);
+                Intent i = new Intent(getContext(), Home.class);
+                startActivity(i);
+            }
+        });
         changeAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -65,6 +65,7 @@ public class PlaceOrder extends AppCompatActivity {
 
         final Cart c=new Cart();
 
+
         ItemName=Extras.getStringArrayList("itemsname");
         ItemQTY=Extras.getStringArrayList("itemQtn");
         ItemPrice=Extras.getStringArrayList("itemsprice");
@@ -144,7 +145,7 @@ public class PlaceOrder extends AppCompatActivity {
                     data.add(new BasicNameValuePair("data",orderInfo.toString()));
                     DataHolder.getInstance().setPostInfo(data);
 
-                    networkPost.execute("http://192.168.1.20:3000/putOrder").get();
+                    networkPost.execute("http://10.0.2.2:3000/putOrder").get();
                     System.out.println(networkPost.status);
                     if(networkPost.status == 200) {
 
