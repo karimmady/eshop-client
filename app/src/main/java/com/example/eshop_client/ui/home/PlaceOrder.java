@@ -58,6 +58,7 @@ public class PlaceOrder extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_order);
+        setTitle("Order Confirmation");
         final ListView list1 = findViewById(R.id.list1);
         final Button ChangeAddress = findViewById(R.id.change);
         Bundle Extras=getIntent().getExtras();

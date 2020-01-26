@@ -22,6 +22,7 @@ public class OrderItems extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_items);
+        setTitle("Order Items");
         Intent intent = getIntent();
         String jsonArray = intent.getStringExtra("jsonArray");
         ArrayList<String> finalArrayOrderItems= new ArrayList<>();
