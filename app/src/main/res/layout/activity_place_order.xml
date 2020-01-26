@@ -8,6 +8,7 @@
 
 
     <Button
+
         android:id="@+id/mngitems"
         android:layout_width="152dp"
         android:layout_height="36dp"

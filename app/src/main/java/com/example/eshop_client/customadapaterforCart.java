@@ -20,6 +20,7 @@ import java.util.List;
 public class customadapaterforCart extends RecyclerView.Adapter<customadapaterforCart.GroceryProductViewHolder>{
     public List<Items> grocderyItemList;
     static double prev_price=0;
+
     Cart context; //check this
     public customadapaterforCart(List<Items> mProductList, Cart mainActivity) {
         this.grocderyItemList = mProductList;
@@ -76,6 +77,7 @@ public class customadapaterforCart extends RecyclerView.Adapter<customadapaterfo
                 priceplease.setText(String.valueOf(truncated_price)+'$');
                 grocderyItemList.get(position).setProductQty(String.valueOf(Integer.parseInt(grocderyItemList.get(position).getProductQty())-1));
                 grocderyItemList.get(position).setProductPrice(String.valueOf(checkedPrice)+"$");
+
             }
         });
 
@@ -98,6 +100,7 @@ public class customadapaterforCart extends RecyclerView.Adapter<customadapaterfo
                         .doubleValue();
                 priceplease.setText(String.valueOf(truncated_price)+'$');
 
+
             }
         });
 
@@ -115,14 +118,13 @@ public class customadapaterforCart extends RecyclerView.Adapter<customadapaterfo
                         .setScale(3, RoundingMode.HALF_UP)
                         .doubleValue();
                 priceplease.setText(String.valueOf(truncated_price) +'$');
+
                 grocderyItemList.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, grocderyItemList.size());
                 holder.itemView.setVisibility(View.GONE);
                 if(grocderyItemList.isEmpty())
                 {priceplease.setText("0.0 $");}
-
-
 
             }
         });

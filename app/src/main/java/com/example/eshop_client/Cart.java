@@ -15,6 +15,8 @@ import com.example.eshop_client.ui.home.PlaceOrder;
 
 import com.example.eshop_client.ui.home.PlaceOrder;
 
+import com.example.eshop_client.ui.home.PlaceOrder;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -60,6 +62,7 @@ public class Cart extends AppCompatActivity {
                 .setScale(3, RoundingMode.HALF_UP)
                 .doubleValue();
         totalprice.setText(String.valueOf(truncated_price)+ "$");
+
         Button placeorder= findViewById(R.id.placeorder);
         final ArrayList<String> ITEMNAME = new ArrayList<>();
         final ArrayList<String> ITEMQuan = new ArrayList<>();
@@ -120,6 +123,7 @@ class Items {
     public String productOriginalPrice;
 
     public Items(String productName, int productImage, String productPrice, String productSize, String productQty,String productID,String ProductOriginalPrice) {
+
         this.productImage = productImage;
         this.productName = productName;
         this.productPrice = productPrice;
@@ -127,6 +131,7 @@ class Items {
         this.productQty = productQty;
         this.productID=productID;
         this.productOriginalPrice=ProductOriginalPrice;
+
     }
 
     public String getProductQty() {
@@ -183,6 +188,7 @@ class Items {
     {
         return productOriginalPrice;
     }
+
 }
 
 

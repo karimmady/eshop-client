@@ -19,6 +19,7 @@ import com.example.eshop_client.Network;
 import com.example.eshop_client.R;
 
 import java.util.ArrayList;
+
 import com.example.eshop_client.NetworkPost;
 import com.example.eshop_client.R;
 
@@ -43,6 +44,7 @@ public class PlaceOrder extends AppCompatActivity {
     ArrayList<String> ItemID = new ArrayList<>();
     Double finalamount;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +57,7 @@ public class PlaceOrder extends AppCompatActivity {
         ItemImage=new ArrayList<Integer>();
         ItemSize=new ArrayList<>();
         ItemID = new ArrayList<>();
+
 
 
 
@@ -85,6 +88,7 @@ public class PlaceOrder extends AppCompatActivity {
 
         TextView TOTALAMOUNT=findViewById(R.id.totamount);
         TOTALAMOUNT.setText("Total Amount "+String.valueOf(ALfinal.addprices())+" $");
+
 
         final Spinner s = (Spinner) findViewById(R.id.spinner);
          ArrayList<String> paymentmethod= new ArrayList<>();
@@ -145,6 +149,7 @@ class placeord{
     ArrayList<String> finallist=new ArrayList<>();
 
 
+
     placeord(ArrayList<String> id,ArrayList<String> name,ArrayList<String> qty, ArrayList<String> price,ArrayList<String> size)
     {
         this.id = id;
@@ -179,5 +184,6 @@ class placeord{
         }
         return finalprice;
     }
+
 
 }
