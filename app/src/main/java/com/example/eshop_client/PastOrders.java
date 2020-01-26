@@ -32,7 +32,7 @@ public class PastOrders extends AppCompatActivity {
         setContentView(R.layout.activity_past_orders);
         setTitle("Past Orders");
         try {
-            network.execute("http://10.0.2.2:3000/getOrder?email="+DataHolder.getInstance().getEmail()).get();
+            network.execute("http://192.168.1.20:3000/getOrder?email="+DataHolder.getInstance().getEmail()).get();
             response = network.jsono;
             orders = (JSONArray) response.get("data");
             for( int i = 0; i<orders.length();i+=1){
@@ -51,7 +51,7 @@ public class PastOrders extends AppCompatActivity {
         final ListView listPastOrder = findViewById(R.id.listPastOrders);
         for(int i=0;i<total.size();i++)
         {
-                    finalarraypastorders.add("OrderID :"+orderID.get(i)+"\n"+"Status :"+status.get(i)+"\n"+"Total :"+total.get(i));
+                    finalarraypastorders.add("\n"+"OrderID :"+orderID.get(i)+"\n"+"Status :"+status.get(i)+"\n"+"Total :"+total.get(i)+"\n");
         }
 
 
