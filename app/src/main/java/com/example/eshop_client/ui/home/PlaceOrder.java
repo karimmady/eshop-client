@@ -51,15 +51,6 @@ public class PlaceOrder extends AppCompatActivity {
         setContentView(R.layout.activity_place_order);
         final ListView list1 = findViewById(R.id.list1);
         Bundle Extras=getIntent().getExtras();
-        ItemPrice=new ArrayList<String>();
-        ItemQTY=new ArrayList<String>();
-        ItemName=new ArrayList<String>();
-        ItemImage=new ArrayList<Integer>();
-        ItemSize=new ArrayList<>();
-        ItemID = new ArrayList<>();
-
-
-
 
 
         ItemName=Extras.getStringArrayList("itemsname");

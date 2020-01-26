@@ -11,9 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.eshop_client.ui.home.PlaceOrder;
-
-import com.example.eshop_client.ui.home.PlaceOrder;
 
 import com.example.eshop_client.ui.home.PlaceOrder;
 
