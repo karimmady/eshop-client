@@ -5,8 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
-    android:paddingTop="?attr/actionBarSize">
+    android:paddingTop="15dp">
 
 
     <TextView
@@ -15,7 +14,7 @@
         android:layout_height="33dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="108dp"
         android:text="Points gained"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +26,7 @@
         android:layout_height="33dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="40dp"
         android:text="Address"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +62,7 @@
         android:layout_height="34dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.558"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,7 +81,7 @@
         android:id="@+id/pointsDashboard"
         android:layout_width="231dp"
         android:layout_height="34dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="108dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:text="TextView"
@@ -93,9 +92,9 @@
         android:id="@+id/addressDashboard"
         android:layout_width="231dp"
         android:layout_height="34dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameDashboard" />
@@ -107,7 +106,6 @@
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_dialog_email" />
@@ -143,11 +141,11 @@
         android:layout_marginTop="24dp"
         android:background="@color/deepSkyBlue"
         android:text="Change Password"
-        app:rippleColor="@color/white"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:rippleColor="@color/white" />
 
     <Button
         android:id="@+id/viewOrders"
@@ -175,11 +173,11 @@
         android:text="Log Out"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:rippleColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toEndOf="@+id/changepassword"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:rippleColor="@color/white" />
 
     <Button
         android:id="@+id/changesizes"
@@ -188,13 +186,13 @@
         android:layout_marginTop="8dp"
         android:background="@color/deepSkyBlue"
         android:text="Set Your Sizes"
-        app:rippleColor="@color/white"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.104"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logout" />
+        app:layout_constraintTop_toBottomOf="@+id/logout"
+        app:rippleColor="@color/white" />
 
     <Button
         android:id="@+id/changeAddress"
@@ -205,11 +203,11 @@
         android:text="Set Your Address"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:rippleColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.837"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logout" />
+        app:layout_constraintTop_toBottomOf="@+id/logout"
+        app:rippleColor="@color/white" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
