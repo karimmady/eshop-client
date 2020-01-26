@@ -9,9 +9,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.eshop_client.ui.home.PlaceOrder;
 
+import com.example.eshop_client.ui.home.PlaceOrder;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,9 +55,11 @@ public class Cart extends AppCompatActivity {
             amount=mProductList.get(i).productPrice.replace('$',' ');
             finalamount+=Double.valueOf(amount);
         }
-        final Double ffinalamount=finalamount;
-        new DecimalFormat("####.##").format(finalamount);
-        totalprice.setText(String.valueOf(finalamount)+ "$");
+
+        Double truncated_price = BigDecimal.valueOf(finalamount)
+                .setScale(3, RoundingMode.HALF_UP)
+                .doubleValue();
+        totalprice.setText(String.valueOf(truncated_price)+ "$");
         Button placeorder= findViewById(R.id.placeorder);
         final ArrayList<String> ITEMNAME = new ArrayList<>();
         final ArrayList<String> ITEMQuan = new ArrayList<>();
@@ -65,33 +72,35 @@ public class Cart extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                for(int j=0; j<mAdapter.grocderyItemList.size(); j++)
-                {
-                    ITEMIMAGE.add(mAdapter.grocderyItemList.get(j).productImage);
-                    ITEMNAME.add(mAdapter.grocderyItemList.get(j).productName);
-                    ITEMQuan.add(mAdapter.grocderyItemList.get(j).productQty);
-                    ITEMPRICE.add(mAdapter.grocderyItemList.get(j).productPrice);
-                    ITEMSIZE.add(mAdapter.grocderyItemList.get(j).productSize);
-                    ITEMID.add(mAdapter.grocderyItemList.get(j).productID);
+                if (mProductList.size() == 0) {
+                    Toast.makeText(Cart.this, "Empty Cart", Toast.LENGTH_SHORT).show();
+                } else {
+                    for (int j = 0; j < mAdapter.grocderyItemList.size(); j++) {
+                        ITEMIMAGE.add(mAdapter.grocderyItemList.get(j).productImage);
+                        ITEMNAME.add(mAdapter.grocderyItemList.get(j).productName);
+                        ITEMQuan.add(mAdapter.grocderyItemList.get(j).productQty);
+                        ITEMPRICE.add(mAdapter.grocderyItemList.get(j).productPrice);
+                        ITEMSIZE.add(mAdapter.grocderyItemList.get(j).productSize);
+                        ITEMID.add(mAdapter.grocderyItemList.get(j).productID);
 
+                    }
+
+
+                    Intent i = new Intent(Cart.this, PlaceOrder.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArrayList("itemsname", ITEMNAME);
+                    bundle.putStringArrayList("itemsprice", ITEMPRICE);
+                    bundle.putStringArrayList("itemQtn", ITEMQuan);
+                    bundle.putIntegerArrayList("itemimage", ITEMIMAGE);
+                    bundle.putStringArrayList("itemsize", ITEMSIZE);
+                    bundle.putStringArrayList("IDs", ITEMID);
+
+                    i.putExtras(bundle);
+                    startActivity(i);
+                    finish();
                 }
-
-
-                Intent i = new Intent(Cart.this, PlaceOrder.class);
-                Bundle bundle = new Bundle();
-
-                bundle.putStringArrayList("itemsname", ITEMNAME);
-                bundle.putStringArrayList("itemsprice", ITEMPRICE);
-                bundle.putStringArrayList("itemQtn", ITEMQuan);
-                bundle.putIntegerArrayList("itemimage",ITEMIMAGE);
-                bundle.putStringArrayList("itemsize",ITEMSIZE);
-                bundle.putDouble("finalam",ffinalamount);
-                bundle.putStringArrayList("IDs",ITEMID);
-
-                i.putExtras(bundle);
-                startActivity(i);
-                finish();
-            }});
+            }
+        });
     }
 
 
@@ -108,14 +117,16 @@ class Items {
     public String productSize;
     public String productQty;
     public String productID;
+    public String productOriginalPrice;
 
-    public Items(String productName, int productImage, String productPrice, String productSize, String productQty,String productID) {
+    public Items(String productName, int productImage, String productPrice, String productSize, String productQty,String productID,String ProductOriginalPrice) {
         this.productImage = productImage;
         this.productName = productName;
         this.productPrice = productPrice;
         this.productSize = productSize;
         this.productQty = productQty;
         this.productID=productID;
+        this.productOriginalPrice=ProductOriginalPrice;
     }
 
     public String getProductQty() {
@@ -166,6 +177,11 @@ class Items {
     public String getProductID()
     {
         return productID;
+    }
+
+    public String getProductOriginalPrice()
+    {
+        return productOriginalPrice;
     }
 }
 

@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eshop_client.Network;
 import com.example.eshop_client.R;
+import com.example.eshop_client.ui.home.Specific;
 import com.example.eshop_client.ui.notifications.CustomAdaptertwo;
 
 import org.json.JSONArray;
@@ -37,14 +38,17 @@ public class NotificationsFragment extends Fragment {
     Network network = new Network();
     JSONObject brands;
     JSONArray brandsArray;
-    ArrayList<String> notifTitle = new ArrayList<>();//(Arrays.asList("brand 1", "brand 2", "brand 3", "brand 4", "brand 5", "brand 6", "brand 7","brand 8", "brand 9", "brand 10", "brand 11", "brand 12", "brand 13", "brand 14"));
-    ArrayList<Integer> notifImages = new ArrayList<>();//(Arrays.asList(R.drawable.nike4, R.drawable.nike2));
+    ArrayList<String> itemName = new ArrayList<>();//(Arrays.asList("brand 1", "brand 2", "brand 3", "brand 4", "brand 5", "brand 6", "brand 7","brand 8", "brand 9", "brand 10", "brand 11", "brand 12", "brand 13", "brand 14"));
+    ArrayList<Integer> itemImage = new ArrayList<>();//(Arrays.asList(R.drawable.nike1, R.drawable.nike2, R.drawable.nike3,R.drawable.nike4));
+    ArrayList<String> itemPrice = new ArrayList<>();
+    ArrayList<String> itemSizes = new ArrayList<>();
+    ArrayList<ArrayList<String>> allSizes = new ArrayList<>();
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
         try {
-            network.execute("http://10.0.2.2:3000/getbrands").get();
+            network.execute("http://10.0.2.2:3000/getFashion").get();
             brands = network.jsono;
             brandsArray = (JSONArray) brands.get("data");
             System.out.println(brandsArray);
@@ -53,17 +57,24 @@ public class NotificationsFragment extends Fragment {
         }
         for (int i = 0; i<brandsArray.length(); i+=1){
             try {
-                JSONObject temp = (JSONObject)brandsArray.get(i);
-                System.out.println(temp.get("name"));
-                notifTitle.add((String)temp.get("name"));
-                notifImages.add(getResources().getIdentifier((String)temp.get("name"), "drawable",getActivity().getApplicationContext().getPackageName()));
-
+                JSONObject temp = (JSONObject) brandsArray.get(i);
+                itemName.add((String)temp.get("name"));
+                itemImage.add(getResources().getIdentifier(((String)temp.get("ID")).toLowerCase(), "drawable",getContext().getApplicationContext().getPackageName()));
+                itemPrice.add((String)temp.get("price"));
+                JSONArray tempSize = (JSONArray) temp.get("size");
+                itemSizes.clear();
+                for(int j = 0; j<tempSize.length();j+=1){
+                    JSONObject eachSize = tempSize.getJSONObject(j);
+                    itemSizes.add(eachSize.getString("name"));
+                }
+                allSizes.add(new ArrayList<String>(itemSizes));
+                System.out.println(itemSizes);
             }catch (Exception e){}
         }
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recyclerViewnot);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),1);
         recyclerView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
-        CustomAdaptertwo customAdapter = new CustomAdaptertwo(getContext(), notifTitle, notifImages);
+        CustomAdaptertwo customAdapter = new CustomAdaptertwo(getContext(), itemName, itemImage,itemPrice,itemSizes,allSizes);
         recyclerView.setAdapter(customAdapter); // set the Adapter to RecyclerView
 
         return root;
@@ -82,15 +93,21 @@ public class NotificationsFragment extends Fragment {
 
     class CustomAdaptertwo extends RecyclerView.Adapter<com.example.eshop_client.ui.notifications.CustomAdaptertwo.MyViewHolder> {
 
-    ArrayList<String> notifTitle;
-    ArrayList<Integer> notifImages;
+
     Context context;
+    ArrayList<String> itemName;
+    ArrayList<String> itemPrice;
+    ArrayList<String> itemSizes;
+    ArrayList<Integer> itemImage;
+    ArrayList<ArrayList<String>>allSizes;
 
-    public CustomAdaptertwo(Context context, ArrayList<String> notifTitle, ArrayList<Integer> notifImages) {
+    public CustomAdaptertwo(Context context, ArrayList<String> itemName, ArrayList<Integer> itemImage,ArrayList<String> itemPrice,ArrayList<String> itemSizes, ArrayList<ArrayList<String>>allSizes) {
         this.context = context;
-
-        this.notifTitle = notifTitle;
-        this.notifImages = notifImages;
+        this.itemPrice =itemPrice;
+        this.itemName = itemName;
+        this.itemImage = itemImage;
+        this.itemSizes = itemSizes;
+        this.allSizes = allSizes;;
     }
 
     @Override
@@ -105,16 +122,21 @@ public class NotificationsFragment extends Fragment {
     @Override
     public void onBindViewHolder(com.example.eshop_client.ui.notifications.CustomAdaptertwo.MyViewHolder holder, final int position) {
         // set the data in items
-        holder.name.setText(notifTitle.get(position));
-        holder.image.setImageResource(notifImages.get(position));
+        holder.name.setText(itemName.get(position));
+        holder.image.setImageResource(itemImage.get(position));
         // implement setOnClickListener event on item view.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // open another activity on item click
-                Intent intent = new Intent(context, NotificationsFragment.class);
-                intent.putExtra("image", notifImages.get(position)); // put image data in Intent
-                context.startActivity(intent); // start Intent
+                Intent i= new Intent(context, Specific.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("itemname",itemName.get(position));
+                bundle.putString("itemprice",itemPrice.get(position));
+                bundle.putStringArrayList("itemsize",allSizes.get(position));
+                bundle.putInt("image",itemImage.get(position));
+                i.putExtras(bundle);
+                context.startActivity(i);
             }
         });
 
@@ -123,7 +145,7 @@ public class NotificationsFragment extends Fragment {
 
     @Override
     public int getItemCount() {
-        return notifTitle.size();
+        return itemName.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

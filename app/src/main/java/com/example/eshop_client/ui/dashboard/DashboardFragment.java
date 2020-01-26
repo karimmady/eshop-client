@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.eshop_client.DataHolder;
 import com.example.eshop_client.MainActivity;
 import com.example.eshop_client.Network;
+import com.example.eshop_client.PastOrders;
 import com.example.eshop_client.R;
 import com.example.eshop_client.SetAddress;
 
@@ -43,6 +44,7 @@ public class DashboardFragment extends Fragment {
         final Button changepw = root.findViewById(R.id.changepassword);
         final Button changesize = root.findViewById(R.id.changesizes);
         final Button changeAddress = root.findViewById(R.id.changeAddress);
+        final Button pastOrders = root.findViewById(R.id.viewOrders);
         name = root.findViewById(R.id.nameDashboard);
         email = root.findViewById(R.id.emailDashboard);
         points = root.findViewById(R.id.pointsDashboard);
@@ -71,6 +73,13 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(),SetSizes.class);
+                startActivity(i);
+            }
+        });
+        pastOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), PastOrders.class);
                 startActivity(i);
             }
         });
