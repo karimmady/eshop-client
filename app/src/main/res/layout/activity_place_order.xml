@@ -19,7 +19,7 @@
         android:layout_marginBottom="296dp"
         android:layout_x="250dp"
         android:layout_y="169dp"
-        android:background="@color/deepSkyBlue"
+        android:background="@layout/button_background"
         android:text="Manage items"
         android:textColor="@color/white"
         android:textSize="15dp"
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_x="291dp"
         android:layout_y="283dp"
-        android:background="@color/deepSkyBlue"
+        android:background="@layout/button_background"
         android:text="Change Address"
         android:textColor="@color/white" />
 
@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_x="98dp"
         android:layout_y="538dp"
-        android:background="@color/deepSkyBlue"
+        android:background="@layout/button_background"
         android:text="Place your order"
         android:textColor="@color/white" />
 

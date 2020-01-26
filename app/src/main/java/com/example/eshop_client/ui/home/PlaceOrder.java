@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.eshop_client.Cart;
 import com.example.eshop_client.DataHolder;
+import com.example.eshop_client.Home;
 import com.example.eshop_client.Network;
 import com.example.eshop_client.R;
 
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 
 import com.example.eshop_client.NetworkPost;
 import com.example.eshop_client.R;
+import com.example.eshop_client.SetAddress;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -44,14 +46,19 @@ public class PlaceOrder extends AppCompatActivity {
     ArrayList<String> ItemID = new ArrayList<>();
     Double finalamount;
 
+    NetworkPost networkPost = new NetworkPost();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_order);
         final ListView list1 = findViewById(R.id.list1);
+        final Button ChangeAddress = findViewById(R.id.change);
         Bundle Extras=getIntent().getExtras();
 
+
+        final Cart c=new Cart();
 
         ItemName=Extras.getStringArrayList("itemsname");
         ItemQTY=Extras.getStringArrayList("itemQtn");
@@ -60,7 +67,7 @@ public class PlaceOrder extends AppCompatActivity {
         ItemSize =Extras.getStringArrayList("itemsize");
         finalamount=Extras.getDouble("finalam");
         ItemID = Extras.getStringArrayList("IDs");
-        placeord ALfinal=new placeord(ItemID,ItemName,ItemQTY,ItemPrice,ItemSize);
+        final placeord ALfinal=new placeord(ItemID,ItemName,ItemQTY,ItemPrice,ItemSize);
 
 
 
@@ -69,6 +76,14 @@ public class PlaceOrder extends AppCompatActivity {
             list1.setAdapter(CatAdapt3);
 
         Button Manageitems= findViewById(R.id.mngitems);
+
+        ChangeAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(PlaceOrder.this, SetAddress.class);
+                startActivity(i);
+            }
+        });
         Manageitems.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -104,7 +119,7 @@ public class PlaceOrder extends AppCompatActivity {
                     orderInfo.put("Email", DataHolder.getInstance().getEmail());
                     orderInfo.put("address", userAddress);
                     orderInfo.put("status", "pending");
-                    orderInfo.put("total", String.valueOf(finalamount)+"$");
+                    orderInfo.put("total", String.valueOf(ALfinal.addprices())+"$");
                     JSONArray orderItems = new JSONArray();
                     for (int i = 0; i < ItemID.size(); i += 1) {
                         JSONObject eachItem = new JSONObject();
@@ -118,10 +133,18 @@ public class PlaceOrder extends AppCompatActivity {
                     orderInfo.put("items",orderItems);
                     data.add(new BasicNameValuePair("data",orderInfo.toString()));
                     DataHolder.getInstance().setPostInfo(data);
-                    new NetworkPost().execute("http://10.0.2.2:3000/putOrder").get();
-                    if(network.status == 200) {
+
+                    networkPost.execute("http://10.0.2.2:3000/putOrder").get();
+                    if(networkPost.status == 200) {
+
                         Toast.makeText(PlaceOrder.this, "Your order has been placed", Toast.LENGTH_LONG).show();
-                        //TODO:Empty cart and return to home
+                        c.cartuse.truncateList();
+                        Intent i = new Intent(PlaceOrder.this, Home.class);
+                        startActivity(i);
+                    }
+                    else
+                    {
+                        Toast.makeText(PlaceOrder.this,"Please enter your address",Toast.LENGTH_SHORT).show();
                     }
                 }catch (Exception e){
                     System.out.println(e);
