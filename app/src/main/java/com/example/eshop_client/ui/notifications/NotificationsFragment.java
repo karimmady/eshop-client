@@ -48,7 +48,7 @@ public class NotificationsFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
         try {
-            network.execute("http://192.168.1.20:3000/getFashion").get();
+            network.execute("http://10.0.2.2:3000/getFashion").get();
             brands = network.jsono;
             brandsArray = (JSONArray) brands.get("data");
             System.out.println(brandsArray);

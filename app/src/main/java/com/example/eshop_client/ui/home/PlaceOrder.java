@@ -111,7 +111,7 @@ public class PlaceOrder extends AppCompatActivity {
         s.setAdapter(adapter);
         TextView address = findViewById(R.id.add);
         try{
-        network.execute("http://192.168.1.20:3000/getAddress?email=" + DataHolder.getInstance().getEmail()).get();
+        network.execute("http://10.0.2.2:3000/getAddress?email=" + DataHolder.getInstance().getEmail()).get();
         userAddress = (String)network.jsono.get("address");
         address.setText(userAddress);
         }catch (Exception e){
@@ -143,7 +143,7 @@ public class PlaceOrder extends AppCompatActivity {
                     data.add(new BasicNameValuePair("data",orderInfo.toString()));
                     DataHolder.getInstance().setPostInfo(data);
 
-                    networkPost.execute("http://192.168.1.20:3000/putOrder").get();
+                    networkPost.execute("http://10.0.2.2:3000/putOrder").get();
                     System.out.println(networkPost.status);
                     if(networkPost.status == 200) {
 

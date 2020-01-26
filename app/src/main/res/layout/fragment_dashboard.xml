@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:paddingTop="15dp">
 
 
@@ -207,6 +207,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logout"
         app:rippleColor="@color/white" />
+
+<!--    <Button-->
+<!--        android:id="@+id/night"-->
+<!--        android:layout_width="153dp"-->
+<!--        android:layout_height="55dp"-->
+<!--        android:layout_marginTop="132dp"-->
+<!--        android:background="@layout/button_background"-->
+<!--        android:text="Set Your Address"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/logout"-->
+<!--        app:rippleColor="@color/white" />-->
+
+    <Switch
+        android:id="@+id/night"
+        android:layout_width="336dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="136dp"
+        android:text="Night Mode"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
